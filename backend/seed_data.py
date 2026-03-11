@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 # Add backend to path to import models if needed, or just use raw pymongo
 sys.path.append(os.path.join(os.getcwd(), 'backend'))
 
-load_dotenv(os.path.join(os.getcwd(), 'backend', '.env'))
+load_dotenv(os.path.join(os.path.dirname(__file__),'.env'))
 
 def seed_products():
     mongo_uri = os.environ.get('MONGO_URI')
