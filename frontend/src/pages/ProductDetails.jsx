@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { productApi } from '../api/productApi';
 import { cartApi } from '../api/cartApi';
-import { ShoppingCart, ArrowLeft, Loader2, Package } from 'lucide-react';
+import { ShoppingCart, ArrowLeft, Loader2, Package, Heart } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+import { useToast } from '../context/ToastContext';
+import { getProductImage } from '../lib/productArt';
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -12,6 +16,9 @@ const ProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
     const [adding, setAdding] = useState(false);
     const { user, isAdmin } = useAuth();
+    const { addItem } = useCart();
+    const { isSaved, toggle } = useWishlist();
+    const { toast } = useToast();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,6 +26,11 @@ const ProductDetails = () => {
             try {
                 const { data } = await productApi.getOne(id);
                 setProduct(data);
+                // Feed the AI recommendation engine with this view
+                const viewed = JSON.parse(localStorage.getItem('viewedProducts') || '[]')
+                    .filter((x) => x !== data._id);
+                viewed.unshift(data._id);
+                localStorage.setItem('viewedProducts', JSON.stringify(viewed.slice(0, 12)));
             } catch (error) {
                 console.error('Failed to fetch product', error);
             } finally {
@@ -36,15 +48,9 @@ const ProductDetails = () => {
         if (isAdmin) return;
 
         setAdding(true);
-        try {
-            await cartApi.addItem({ product_id: id, quantity });
-            window.dispatchEvent(new Event('cart-updated'));
-            alert('Added to cart!');
-        } catch (error) {
-            alert('Failed to add to cart');
-        } finally {
-            setAdding(false);
-        }
+        const res = await addItem(product, quantity);
+        if (!res?.ok && res?.redirect) navigate(res.redirect);
+        setAdding(false);
     };
 
     if (loading) return (
@@ -65,20 +71,15 @@ const ProductDetails = () => {
                 Back to Collection
             </button>
 
-            <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+            <div className="glass-card rounded-[2.5rem] shadow-xl shadow-gray-200/40 overflow-hidden">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-12">
                     {/* Image Section */}
                     <div className="bg-gray-50 p-8 md:p-12 flex items-center justify-center border-r border-gray-50">
                         <div className="relative group w-full aspect-square max-w-md">
                             <img
-                                src={product.image_path ? `/${product.image_path}` : 'https://via.placeholder.com/600?text=No+Image'}
+                                src={getProductImage(product)}
                                 alt={product.name}
-                                className="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-105"
-                                onError={(e) => {
-                                    // Fallback for path resolution if proxied path fails
-                                    const filename = product.image_path.split('/').pop();
-                                    e.target.src = `/uploads/${filename}`;
-                                }}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             />
                             <div className="absolute top-4 right-4">
                                 <span className="bg-white/80 backdrop-blur px-4 py-1.5 rounded-full text-xs font-black text-gray-900 uppercase tracking-widest shadow-sm border border-gray-100">
@@ -147,6 +148,17 @@ const ProductDetails = () => {
                                             </>
                                         )}
                                     </button>
+                                    {!isAdmin && (
+                                        <button
+                                            onClick={() => toggle(product._id)}
+                                            className={`flex items-center justify-center p-4 rounded-2xl border border-gray-200 transition-all active:scale-95 ${
+                                                isSaved(product._id) ? 'bg-rose-50 border-rose-200 text-rose-600' : 'text-gray-400 hover:text-rose-500 hover:border-rose-200'
+                                            }`}
+                                            title="Save to wishlist"
+                                        >
+                                            <Heart className={`h-6 w-6 ${isSaved(product._id) ? 'fill-current' : ''}`} />
+                                        </button>
+                                    )}
                                 </div>
                                 <p className="text-xs text-gray-400 font-bold text-center">
                                     Secure checkout & Free shipping on premium orders
@@ -164,7 +176,7 @@ const ProductDetails = () => {
                     { icon: ShoppingCart, title: 'Premium Support', desc: '24/7 dedicated' },
                     { icon: ArrowLeft, title: 'Easy Returns', desc: '30-day window' }
                 ].map((f, i) => (
-                    <div key={i} className="bg-white p-6 rounded-3xl border border-gray-100 flex items-center space-x-4 shadow-sm">
+                    <div key={i} className="glass-card p-6 rounded-3xl flex items-center space-x-4 shadow-sm">
                         <div className="p-3 bg-primary-100 rounded-2xl text-primary-600">
                             <f.icon className="h-6 w-6" />
                         </div>

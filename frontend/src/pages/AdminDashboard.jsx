@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { productApi } from '../api/productApi';
 import { orderApi } from '../api/orderApi';
-import { Plus, Edit, Trash2, Package, ShoppingBag, CheckCircle, Clock, Truck, XCircle, Loader2 } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, ShoppingBag, CheckCircle, Clock, Truck, XCircle, Loader2, BarChart3 } from 'lucide-react';
+import { useToast } from '../context/ToastContext';
+import AdminAnalytics from '../components/AdminAnalytics';
 
 const AdminDashboard = () => {
+    const { toast } = useToast();
     const [products, setProducts] = useState([]);
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -57,8 +61,9 @@ const AdminDashboard = () => {
             setFormData({ name: '', description: '', price: '', category: '', stock_quantity: '' });
             setImageFile(null);
             fetchData();
+            toast(editingProduct ? 'Product updated! ✏️' : 'Product created! ✨', 'success');
         } catch (error) {
-            alert('Failed to save product');
+            toast('Failed to save product', 'error');
         }
     };
 
@@ -67,8 +72,9 @@ const AdminDashboard = () => {
             try {
                 await productApi.delete(id);
                 fetchData();
+                toast('Product deleted 🗑️', 'info');
             } catch (error) {
-                alert('Failed to delete product');
+                toast('Failed to delete product', 'error');
             }
         }
     };
@@ -77,8 +83,9 @@ const AdminDashboard = () => {
         try {
             await orderApi.updateStatus(orderId, status);
             fetchData();
+            toast(`Order marked as ${status}`, 'success');
         } catch (error) {
-            alert('Failed to update status');
+            toast('Failed to update status', 'error');
         }
     };
 
@@ -86,7 +93,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
-            <header className="relative bg-white p-10 rounded-[3rem] shadow-2xl shadow-gray-200/50 border border-gray-100 overflow-hidden group">
+            <header className="relative glass-card p-10 rounded-[3rem] shadow-2xl shadow-gray-200/40 overflow-hidden group">
                 {/* Background Pattern/Image Overlay */}
                 <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
                     <img 
@@ -102,23 +109,32 @@ const AdminDashboard = () => {
                         <p className="text-gray-500 font-medium">Control center for your premium marketplace inventory and orders.</p>
                     </div>
                     <div className="flex bg-gray-50 p-1.5 rounded-2xl border border-gray-100 shadow-inner">
-                        <button 
-                            onClick={() => setActiveTab('products')}
-                            className={`px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest transition-all ${activeTab === 'products' ? 'bg-primary-600 text-white shadow-lg shadow-primary-200' : 'text-gray-400 hover:text-gray-600'}`}
-                        >
-                            Catalog
-                        </button>
-                        <button 
-                            onClick={() => setActiveTab('orders')}
-                            className={`px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest transition-all relative ${activeTab === 'orders' ? 'bg-primary-600 text-white shadow-lg shadow-primary-200' : 'text-gray-400 hover:text-gray-600'}`}
-                        >
-                            Orders
-                            {pendingCount > 0 && (
-                                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] h-5 w-5 flex items-center justify-center rounded-full border-2 border-white animate-bounce">
-                                    {pendingCount}
-                                </span>
+                        {[
+                          { key: "products", label: "Catalog", icon: Package },
+                          { key: "orders", label: "Orders", icon: ShoppingBag, badge: pendingCount },
+                          { key: "analytics", label: "Analytics", icon: BarChart3 },
+                        ].map((t) => (
+                          <button
+                            key={t.key}
+                            onClick={() => setActiveTab(t.key)}
+                            className={`relative px-5 md:px-7 py-3 rounded-xl font-black text-sm uppercase tracking-widest transition-all flex items-center gap-2 ${activeTab === t.key ? "text-white" : "text-gray-400 hover:text-gray-600"}`}
+                          >
+                            {activeTab === t.key && (
+                              <motion.span
+                                layoutId="admin-pill"
+                                className="absolute inset-0 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 shadow-lg shadow-sky-200"
+                                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                              />
                             )}
-                        </button>
+                            <t.icon className="relative h-4 w-4" />
+                            <span className="relative">{t.label}</span>
+                            {t.badge > 0 && (
+                              <span className="relative -ml-1 -mt-3 bg-red-500 text-white text-[10px] h-5 min-w-5 px-1 flex items-center justify-center rounded-full border-2 border-white animate-bounce">
+                                {t.badge}
+                              </span>
+                            )}
+                          </button>
+                        ))}
                     </div>
                 </div>
             </header>
@@ -136,7 +152,7 @@ const AdminDashboard = () => {
                     </div>
 
                     {showForm && (
-                        <div className="bg-white p-8 rounded-3xl shadow-xl border border-primary-100 animate-in fade-in slide-in-from-top-4 duration-300">
+                        <div className="glass-card p-8 rounded-3xl shadow-xl border border-white/40 animate-in fade-in slide-in-from-top-4 duration-300">
                             <h3 className="text-xl font-bold mb-6 text-gray-900">{editingProduct ? 'Edit Product' : 'New Product'}</h3>
                             <form onSubmit={handleProductSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <input
@@ -203,7 +219,7 @@ const AdminDashboard = () => {
                         </div>
                     )}
 
-                    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div className="glass-card rounded-3xl shadow-sm overflow-hidden">
                         {/* Desktop View Table */}
                         <div className="hidden lg:block overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-100">
@@ -338,10 +354,10 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                 </div>
-            ) : (
+            ) : activeTab === 'orders' ? (
                 <div className="space-y-6">
                     <h2 className="text-2xl font-bold text-gray-900">All Customer Orders</h2>
-                    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div className="glass-card rounded-3xl shadow-sm overflow-hidden">
                         {/* Desktop Table */}
                         <div className="hidden lg:block overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-100">
@@ -430,6 +446,8 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                 </div>
+            ) : (
+                <AdminAnalytics orders={orders} products={products} />
             )}
         </div>
     );

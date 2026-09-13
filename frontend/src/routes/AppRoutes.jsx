@@ -9,6 +9,7 @@ import Cart from '../pages/Cart';
 import Orders from '../pages/Orders';
 import AdminDashboard from '../pages/AdminDashboard';
 import ProductDetails from '../pages/ProductDetails';
+import Wishlist from '../pages/Wishlist';
 
 const AppRoutes = () => {
     return (
@@ -17,11 +18,12 @@ const AppRoutes = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/product/:id" element={<ProductDetails />} />
-            
+
             {/* User Routes */}
             <Route element={<ProtectedRoute />}>
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/orders" element={<Orders />} />
+                <Route path="/wishlist" element={<Wishlist />} />
             </Route>
 
             {/* Admin Routes */}

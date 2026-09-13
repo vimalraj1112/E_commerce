@@ -19,7 +19,7 @@ const Register = () => {
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center px-4">
-            <div className="max-w-md w-full bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+            <div className="max-w-md w-full glass-card rounded-3xl shadow-xl shadow-gray-200/40 overflow-hidden">
                 <div className="p-8 md:p-12">
                     <div className="text-center mb-10">
                         <h2 className="text-3xl font-black text-gray-900 tracking-tight mb-2">Create Account</h2>

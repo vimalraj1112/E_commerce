@@ -1,0 +1,19 @@
+# Render Blueprint — deploys the Flask backend + built React frontend
+# as ONE web service (single origin, no CORS/proxy needed).
+services:
+  - type: web
+    name: mini-ecommerce
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: bash build.sh
+    startCommand: gunicorn --chdir backend wsgi:app
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: MONGO_URI
+        sync: false                # set in Render dashboard
+      - key: SECRET_KEY
+        sync: false
+      - key: JWT_SECRET_KEY
+        sync: false

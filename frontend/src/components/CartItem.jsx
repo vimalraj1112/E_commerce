@@ -1,5 +1,6 @@
 import React from 'react';
 import { Trash2, Plus, Minus } from 'lucide-react';
+import { getProductImage } from '../lib/productArt';
 
 const CartItem = ({ item, updateQty, removeItem }) => {
     const { product, quantity, subtotal } = item;
@@ -8,9 +9,9 @@ const CartItem = ({ item, updateQty, removeItem }) => {
         <li className="flex py-8 px-6 md:px-10 hover:bg-gray-50/50 transition-colors group">
             <div className="h-28 w-28 flex-shrink-0 overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 p-2 relative group-hover:scale-105 transition-transform duration-500">
                 <img
-                    src={product.image_path ? `/${product.image_path}` : 'https://via.placeholder.com/150'}
+                    src={getProductImage(product)}
                     alt={product.name}
-                    className="h-full w-full object-contain mix-blend-multiply"
+                    className="h-full w-full object-cover"
                 />
             </div>
 

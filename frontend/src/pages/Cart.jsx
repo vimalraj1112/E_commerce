@@ -1,70 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { cartApi } from '../api/cartApi';
+import React, { useState } from 'react';
 import { orderApi } from '../api/orderApi';
 import CartItem from '../components/CartItem';
 import { ShoppingBag, CreditCard, Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useToast } from '../context/ToastContext';
+import { useCart } from '../context/CartContext';
+import { motion } from 'framer-motion';
+import { fadeUp, staggerContainer } from '../utils/motion';
 
 const Cart = () => {
-    const [cart, setCart] = useState({ items: [], total_price: 0 });
-    const [loading, setLoading] = useState(true);
+    const { cart, updateQty: updateQuantity, removeItem, fetchCart } = useCart();
     const [placingOrder, setPlacingOrder] = useState(false);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        fetchCart();
-    }, []);
-
-    const fetchCart = async () => {
-        try {
-            const { data } = await cartApi.get();
-            setCart(data);
-        } catch (error) {
-            console.error('Failed to fetch cart', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const updateQuantity = async (productId, qty) => {
-        if (qty < 1) return;
-        try {
-            await cartApi.updateQty({ product_id: productId, quantity: qty });
-            window.dispatchEvent(new Event('cart-updated'));
-            fetchCart();
-        } catch (error) {
-            alert('Failed to update quantity');
-        }
-    };
-
-    const removeItem = async (productId) => {
-        try {
-            await cartApi.remove(productId);
-            window.dispatchEvent(new Event('cart-updated'));
-            fetchCart();
-        } catch (error) {
-            alert('Failed to remove item');
-        }
-    };
+    const { toast } = useToast();
 
     const handleCheckout = async () => {
         setPlacingOrder(true);
         try {
             await orderApi.place();
-            window.dispatchEvent(new Event('cart-updated'));
-            alert('Order placed successfully!');
+            await fetchCart();
+            toast('Order placed successfully! 🎉');
             navigate('/orders');
         } catch (error) {
-            alert('Checkout failed');
+            toast(error.response?.data?.msg || 'Checkout failed — try again.', 'error');
         } finally {
             setPlacingOrder(false);
         }
     };
 
-    if (loading) return <div className="flex justify-center py-12"><Loader2 className="animate-spin text-primary-600 h-8 w-8" /></div>;
-
     if (cart.items.length === 0) return (
-        <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100">
+        <div className="text-center py-20 glass-card rounded-3xl shadow-sm">
             <ShoppingBag className="mx-auto h-12 w-12 text-gray-400 mb-4" />
             <h2 className="text-xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
             <p className="text-gray-500 mb-8">Looks like you haven't added anything to your cart yet.</p>
@@ -89,7 +54,7 @@ const Cart = () => {
 
             <div className="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start">
                 <div className="lg:col-span-8 space-y-6">
-                    <div className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+                    <div className="glass-card rounded-[2.5rem] shadow-xl shadow-gray-200/40 overflow-hidden">
                         <ul role="list" className="divide-y divide-gray-50">
                             {cart.items.map((item) => (
                                 <CartItem 
@@ -111,7 +76,7 @@ const Cart = () => {
                 </div>
 
                 <section className="lg:col-span-4 mt-12 lg:mt-0 lg:sticky lg:top-24">
-                    <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-primary-900/5 border border-primary-50 p-8 space-y-8">
+                    <div className="glass-card rounded-[2.5rem] shadow-2xl shadow-primary-900/10 p-8 space-y-8">
                         <h2 className="text-2xl font-black text-gray-900 tracking-tight">Summary</h2>
                         
                         <div className="space-y-4">

@@ -8,3 +8,5 @@ marshmallow
 flask-marshmallow
 email-validator
 dnspython
+gunicorn
+

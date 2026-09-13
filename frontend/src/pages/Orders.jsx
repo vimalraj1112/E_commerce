@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { orderApi } from '../api/orderApi';
 import { Package, Clock, CheckCircle, Truck, XCircle, ChevronRight, Loader2 } from 'lucide-react';
 
@@ -41,7 +42,7 @@ const Orders = () => {
             </header>
 
             {orders.length === 0 ? (
-                <div className="text-center py-32 bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 italic">
+                <div className="text-center py-32 glass-card rounded-[2.5rem] shadow-xl shadow-gray-200/40 italic">
                     <div className="bg-gray-50 p-6 rounded-full inline-block mb-6">
                         <Package className="h-12 w-12 text-gray-300" />
                     </div>
@@ -54,7 +55,7 @@ const Orders = () => {
             ) : (
                 <div className="space-y-8">
                     {orders.map((order) => (
-                        <div key={order._id} className="group bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500">
+                        <div key={order._id} className="group glass-card rounded-[2.5rem] shadow-xl shadow-gray-200/40 overflow-hidden hover:shadow-2xl transition-all duration-500">
                             <div className="p-8 md:p-10">
                                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-gray-50 pb-8 mb-8">
                                     <div className="space-y-2">
