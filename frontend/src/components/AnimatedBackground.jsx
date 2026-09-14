@@ -1,8 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-// Full-page black & white ambience.
-// Fixed behind all content; drifting soft-gray blobs + a subtle neutral gradient.
+// Full-page black & white ambience with a soft, transparent shopping-photo backdrop.
+// The photo is painted at low opacity (so it reads as "transparent") and softened by a
+// light gradient, keeping every card readable. Gray motion blobs drift on top.
+const SHOP_IMG =
+  "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=70";
+
 const BLOBS = [
   { color: "rgba(220,220,220,0.85)", size: 460, top: "-8%", left: "-6%", dur: 16, dx: 90, dy: 120 },
   { color: "rgba(200,200,200,0.7)", size: 420, top: "16%", left: "80%", dur: 20, dx: -110, dy: 60 },
@@ -13,14 +17,21 @@ const BLOBS = [
 ];
 
 const AnimatedBackground = () => {
-  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-    return <div className="fixed inset-0 -z-10 bg-[#f4f4f5]" />;
-  }
-
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden bg-[#f4f4f5]">
-      {/* subtle neutral shifting gradient — light on white, no hue */}
-      <div className="absolute inset-0 bg-aurora-bw opacity-70" />
+      {/* transparent shopping-photo backdrop */}
+      <img
+        src={SHOP_IMG}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover opacity-[0.22] grayscale"
+        loading="eager"
+      />
+      {/* soft light veil so cards/text stay readable over the photo */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#f4f4f5]/70 via-[#f4f4f5]/60 to-[#f4f4f5]/80" />
+
+      {/* subtle neutral shifting gradient + drifting gray blobs for motion */}
+      <div className="absolute inset-0 bg-aurora-bw opacity-60" />
       {BLOBS.map((b, i) => (
         <motion.div
           key={i}
