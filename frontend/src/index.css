@@ -18,12 +18,13 @@
   --color-ink: #0b1220;
   --color-pearl: #fbfcfe;
 
-  --font-display: "Clash Display", "Space Grotesk", Inter, system-ui, sans-serif;
-  --font-body: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-display: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-body: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
 :root {
-  font-family: var(--font-body);
+  /* ONE font family used everywhere — no mixed display/body fonts across pages */
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

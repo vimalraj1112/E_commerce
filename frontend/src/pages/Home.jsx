@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Sparkles } from "lucide-react";
-import ToonHero from "../components/ToonHero";
+import { Search, Sparkles, ArrowRight } from "lucide-react";
 import { productApi } from "../api/productApi";
 import ProductCard from "../components/ProductCard";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -107,7 +106,49 @@ const Home = () => {
     <div className="space-y-12">
       <Marquee />
 
-      <ToonHero />
+      {/* ============ HERO ============ */}
+      <section className="relative overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/20 backdrop-blur-md px-6 py-16 sm:px-12 sm:py-24 text-center">
+        {/* soft glow orbs over the aurora */}
+        <div className="glow-orb h-64 w-64 -top-10 -left-10 bg-sky-400/50" />
+        <div className="glow-orb h-64 w-64 -bottom-16 -right-10 bg-fuchsia-400/50" style={{ animationDelay: "4s" }} />
+
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" viewport={{ once: true }} className="relative">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sky-700">
+            <Sparkles className="h-3.5 w-3.5" /> AI-Curated Store
+          </span>
+
+          <h1 className="font-display mt-6 text-4xl font-black tracking-tight text-gray-900 sm:text-6xl">
+            Shop Smarter.
+            <br className="hidden sm:block" />
+            <span className="text-gradient">Loved by You.</span>
+          </h1>
+
+          <p className="mx-auto mt-5 max-w-xl text-base font-medium text-gray-500 sm:text-lg">
+            Premium products, picked for your style — live search, smart recommendations, and a checkout this smooth.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            {/* small anchor — smooth-scrolls to the Collection section (id="collection" below) */}
+            <a
+              href="#collection"
+              onClick={(e) => {
+                const el = document.querySelector("#collection");
+                if (el) {
+                  e.preventDefault();
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-600 to-indigo-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-sky-200 transition-transform hover:scale-105"
+            >
+              Browse Collection
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <span className="px-2 text-xs font-semibold uppercase tracking-widest text-gray-400">
+              Free shipping · 30-day returns
+            </span>
+          </div>
+        </motion.div>
+      </section>
 
       {/* ============ AI RECOMMENDED ============ */}
       {recommendations.length >= 4 && (
