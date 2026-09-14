@@ -36,10 +36,11 @@ def create_app():
     @app.route('/backend/app/uploads/<path:filename>')
     @app.route('/uploads/<path:filename>')
     def uploaded_file(filename):
-        # Extract just the filename if it's a full path
-        clean_filename = filename.split('/')[-1]
-        upload_dir = os.path.join(app.root_path, 'app', 'uploads')
-        return send_from_directory(upload_dir, clean_filename)
+        # Serve real uploads from UPLOAD_FOLDER (e.g. backend/uploads), preserving any
+        # subfolder in the path (e.g. products/...). The legacy /backend/app/uploads
+        # alias is kept so older placeholder paths still resolve to the folder too.
+        upload_dir = app.config['UPLOAD_FOLDER']
+        return send_from_directory(upload_dir, filename)
 
     # ---- Production: serve the compiled React SPA from the same Flask process ----
     if os.path.isdir(os.path.join(FRONTEND_DIST, 'assets')):
