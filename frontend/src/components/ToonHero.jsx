@@ -1,18 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-// --- image data (exact URLs + colors) ---
+// E-commerce hero: same motion/palette as the TOONHUB spec,
+// but with real commerce product imagery (sneaker, watch, bag, headphones).
 const IMAGES = [
-  { src: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png", bg: "#F4845F", panel: "#F79B7F" },
-  { src: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png", bg: "#6BBF7A", panel: "#85CC92" },
-  { src: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png", bg: "#E882B4", panel: "#ED9DC4" },
-  { src: "https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png", bg: "#6EB5FF", panel: "#8DC4FF" },
+  {
+    // warm sneaker — orange
+    src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
+    bg: "#F4845F",
+    panel: "#F79B7F",
+    label: "SNEAKERS",
+  },
+  {
+    // smartwatch — green
+    src: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80",
+    bg: "#6BBF7A",
+    panel: "#85CC92",
+    label: "SMART WATCH",
+  },
+  {
+    // bag — pink
+    src: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80",
+    bg: "#E882B4",
+    panel: "#ED9DC4",
+    label: "HANDBAG",
+  },
+  {
+    // headphones — blue
+    src: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+    bg: "#6EB5FF",
+    panel: "#8DC4FF",
+    label: "HEADPHONES",
+  },
 ];
 
 const EASE = "650ms cubic-bezier(0.4, 0, 0.2, 1)";
 const TRANSITION = `transform ${EASE}, filter ${EASE}, opacity ${EASE}, left ${EASE}`;
 
-// subtle film grain, fractalNoise 0.08 opacity inside, 0.4 on container
 const GRAIN_URL = `url("data:image/svg+xml,${encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)" opacity="0.08"/></svg>`
 )}")`;
@@ -22,7 +46,6 @@ const ToonHero = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // preload all 4 images on mount
   useEffect(() => {
     IMAGES.forEach((i) => {
       const img = new Image();
@@ -30,7 +53,6 @@ const ToonHero = () => {
     });
   }, []);
 
-  // track mobile
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth < 640);
     update();
@@ -71,7 +93,6 @@ const ToonHero = () => {
         filter: "blur(2px)",
         opacity: 0.85,
       };
-    // back
     return {
       zIndex: 5,
       left: "50%",
@@ -85,9 +106,9 @@ const ToonHero = () => {
 
   const itemBase = { position: "absolute", aspectRatio: "0.6 / 1" };
 
-  const btnMouse = (e, hover) => {
-    e.currentTarget.style.transform = hover ? "scale(1.08)" : "scale(1)";
-    e.currentTarget.style.backgroundColor = hover ? "rgba(255,255,255,0.12)" : "transparent";
+  const btnHover = (e, on) => {
+    e.currentTarget.style.transform = on ? "scale(1.08)" : "scale(1)";
+    e.currentTarget.style.backgroundColor = on ? "rgba(255,255,255,0.12)" : "transparent";
   };
 
   return (
@@ -100,9 +121,11 @@ const ToonHero = () => {
         width: "100vw",
         marginLeft: "calc(50% - 50vw)",
         overflow: "hidden",
+        // outer rounding like the original premium hero — matches other sections
+        borderRadius: "3rem",
       }}
     >
-      <div style={{ position: "relative", width: "100%", height: "100vh", overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "100%", height: "100vh", overflow: "hidden", borderRadius: "3rem" }}>
         {/* grain overlay */}
         <div
           style={{
@@ -113,10 +136,11 @@ const ToonHero = () => {
             opacity: 0.4,
             backgroundImage: GRAIN_URL,
             backgroundSize: "200px 200px",
+            borderRadius: "3rem",
           }}
         />
 
-        {/* giant ghost text */}
+        {/* giant ghost text — now commerce */}
         <h1
           style={{
             position: "absolute",
@@ -139,12 +163,11 @@ const ToonHero = () => {
             margin: 0,
           }}
         >
-          3D SHAPE
+          SHOP DROP
         </h1>
 
         {/* brand label */}
         <div
-          className="uppercase"
           style={{
             position: "absolute",
             top: 24,
@@ -157,33 +180,37 @@ const ToonHero = () => {
             letterSpacing: "0.18em",
           }}
         >
-          TOONHUB
+          MINISHOP
         </div>
 
-        {/* carousel */}
+        {/* carousel — floating commerce products */}
         <div style={{ position: "absolute", inset: 0, zIndex: 3 }}>
           {IMAGES.map((item, i) => (
-            <div
-              key={item.src}
-              style={{ ...itemBase, ...roleStyle(i), transition: TRANSITION, willChange: "transform, filter, opacity" }}
-            >
+            <div key={item.src} style={{ ...itemBase, ...roleStyle(i), transition: TRANSITION, willChange: "transform, filter, opacity" }}>
               <img
                 src={item.src}
-                alt={item.bg}
+                alt={item.label}
                 draggable={false}
-                style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom center" }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  objectPosition: "bottom center",
+                  // soft white card + shadow so photo products float cleanly over the bright BG
+                  background: "#fff",
+                  borderRadius: 28,
+                  boxShadow: i === center ? "0 20px 50px rgba(0,0,0,.18)" : "0 8px 20px rgba(0,0,0,.12)",
+                  padding: isMobile ? 6 : 10,
+                }}
               />
             </div>
           ))}
         </div>
 
-        {/* bottom-left: text + nav buttons */}
+        {/* bottom-left */}
         <div style={{ position: "absolute", bottom: isMobile ? 24 : 80, left: isMobile ? 16 : 96, zIndex: 60, maxWidth: 320, color: "#fff" }}>
-          <p
-            className="uppercase font-bold"
-            style={{ fontSize: isMobile ? 16 : 22, opacity: 0.95, letterSpacing: "0.02em", margin: "0 0 12px", whiteSpace: "nowrap" }}
-          >
-            TOONHUB FIGURINES
+          <p className="uppercase font-bold" style={{ fontSize: isMobile ? 16 : 22, opacity: 0.95, letterSpacing: "0.02em", margin: "0 0 8px", whiteSpace: "nowrap" }}>
+            {IMAGES[activeIndex].label}
           </p>
           <p
             style={{
@@ -194,15 +221,15 @@ const ToonHero = () => {
               margin: "0 0 20px",
             }}
           >
-            The artwork is stunning, shipped fully prepared. The finish is a vision, the 3D craft is flawless. Many thanks! Wishing you the win. Order now.
+            Curated for your lifestyle — premium quality, AI-picked for you. Free shipping, effortless returns. Discover your next favourite.
           </p>
-          <div style={{ display: "flex", gap: isMobile ? 10 : 12 }}>
+          <div style={{ display: "flex", gap: isMobile ? 10 : 12, alignItems: "center" }}>
             {[ArrowLeft, ArrowRight].map((Icon, i) => (
               <button
                 key={i}
                 onClick={() => navigate(i === 0 ? "prev" : "next")}
-                onMouseEnter={(e) => btnMouse(e, true)}
-                onMouseLeave={(e) => btnMouse(e, false)}
+                onMouseEnter={(e) => btnHover(e, true)}
+                onMouseLeave={(e) => btnHover(e, false)}
                 aria-label={i === 0 ? "Previous" : "Next"}
                 style={{
                   width: isMobile ? 48 : 64,
@@ -221,17 +248,31 @@ const ToonHero = () => {
                 <Icon size={26} strokeWidth={2.25} />
               </button>
             ))}
+            <span
+              style={{
+                marginLeft: 6,
+                fontFamily: "'Anton', sans-serif",
+                fontSize: 11,
+                letterSpacing: "0.14em",
+                opacity: 0.85,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {activeIndex + 1} / 4
+            </span>
           </div>
         </div>
 
-        {/* bottom-right: DISCOVER IT */}
+        {/* bottom-right — SHOP NOW */}
         <a
-          href="#"
+          href="#collection"
           onClick={(e) => {
-            e.preventDefault();
-            navigate("next");
+            const el = document.querySelector("#collection");
+            if (el) {
+              e.preventDefault();
+              el.scrollIntoView({ behavior: "smooth" });
+            }
           }}
-          className="uppercase"
           style={{
             position: "absolute",
             bottom: isMobile ? 24 : 80,
@@ -255,7 +296,8 @@ const ToonHero = () => {
           onMouseEnter={(e) => (e.currentTarget.style.opacity = 1)}
           onMouseLeave={(e) => (e.currentTarget.style.opacity = 0.95)}
         >
-          DISCOVER IT <ArrowRight strokeWidth={2.25} style={{ width: isMobile ? 20 : 32, height: isMobile ? 20 : 32 }} />
+          SHOP NOW{" "}
+          <ArrowRight strokeWidth={2.25} style={{ width: isMobile ? 20 : 32, height: isMobile ? 20 : 32 }} />
         </a>
       </div>
     </div>
