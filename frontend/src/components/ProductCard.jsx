@@ -6,14 +6,14 @@ import { useWishlist } from "../context/WishlistContext";
 import { getProductImage } from "../lib/productArt";
 import { fadeUp, springTap } from "../utils/motion";
 
-const ProductCard = ({ product, addToCart, index = 0 }) => {
+const ProductCard = React.forwardRef(({ product, addToCart, index = 0 }, ref) => {
   const { isSaved, toggle } = useWishlist();
   const saved = isSaved(product._id);
-  const ref = useRef(null);
+  const tiltRef = useRef(null);
 
   // Light 3D tilt on hover (cursor-tracked)
   const handleMove = (e) => {
-    const el = ref.current;
+    const el = tiltRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -21,7 +21,7 @@ const ProductCard = ({ product, addToCart, index = 0 }) => {
     el.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${y * -7}deg) translateY(-6px)`;
   };
   const handleLeave = () => {
-    const el = ref.current;
+    const el = tiltRef.current;
     if (el) el.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg) translateY(0)";
   };
 
@@ -29,6 +29,7 @@ const ProductCard = ({ product, addToCart, index = 0 }) => {
 
   return (
     <motion.div
+      ref={ref}
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
@@ -37,7 +38,7 @@ const ProductCard = ({ product, addToCart, index = 0 }) => {
       className="group outline-none"
     >
       <div
-        ref={ref}
+        ref={tiltRef}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
         style={{ transition: "transform .35s cubic-bezier(.22,.61,.36,1), box-shadow .35s ease" }}
@@ -120,6 +121,6 @@ const ProductCard = ({ product, addToCart, index = 0 }) => {
       </div>
     </motion.div>
   );
-};
+});
 
 export default ProductCard;
