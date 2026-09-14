@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { productApi } from '../api/productApi';
 import { cartApi } from '../api/cartApi';
-import { ShoppingCart, ArrowLeft, Loader2, Package, Heart } from 'lucide-react';
+import { ShoppingCart, ArrowLeft, Loader2, Package, Heart, ZoomIn, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
@@ -15,6 +15,7 @@ const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState(1);
     const [adding, setAdding] = useState(false);
+    const [zoomed, setZoomed] = useState(false);
     const { user, isAdmin } = useAuth();
     const { addItem } = useCart();
     const { isSaved, toggle } = useWishlist();
@@ -75,19 +76,47 @@ const ProductDetails = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:gap-12">
                     {/* Image Section */}
                     <div className="bg-gray-50 p-8 md:p-12 flex items-center justify-center border-r border-gray-50">
-                        <div className="relative group w-full aspect-square max-w-md">
+                        <button
+                            onClick={() => setZoomed(true)}
+                            className="relative group w-full aspect-square max-w-md block cursor-zoom-in overflow-hidden rounded-3xl"
+                            title="Click to zoom"
+                        >
                             <img
-                                src={getProductImage(product)}
+                                src={getProductImage(product, "1080x1440")}
                                 alt={product.name}
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125"
                             />
                             <div className="absolute top-4 right-4">
                                 <span className="bg-white/80 backdrop-blur px-4 py-1.5 rounded-full text-xs font-black text-gray-900 uppercase tracking-widest shadow-sm border border-gray-100">
                                     {product.category}
                                 </span>
                             </div>
-                        </div>
+                            <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 bg-white/85 backdrop-blur px-3 py-1.5 rounded-xl text-[11px] font-black text-neutral-800 uppercase tracking-widest shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                                <ZoomIn className="h-4 w-4" /> Zoom
+                            </span>
+                        </button>
                     </div>
+
+                    {/* Lightbox zoom */}
+                    {zoomed && (
+                        <div
+                            className="fixed inset-0 z-[100] bg-neutral-900/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+                            onClick={() => setZoomed(false)}
+                        >
+                            <button
+                                onClick={() => setZoomed(false)}
+                                className="absolute top-5 right-5 z-10 p-3 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                                aria-label="Close zoom"
+                            >
+                                <X className="h-6 w-6" />
+                            </button>
+                            <img
+                                src={getProductImage(product, "1440x1920")}
+                                alt={product.name}
+                                className="max-h-full max-w-full rounded-3xl object-contain shadow-2xl transition-transform"
+                            />
+                        </div>
+                    )}
 
                     {/* Content Section */}
                     <div className="p-8 md:p-12 flex flex-col justify-center">

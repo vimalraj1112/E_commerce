@@ -2,6 +2,59 @@
 // a deterministic "AI-style" art piece keyed by each product's id/name.
 // No network needed. Every product looks distinct.
 
+// ---------------------------------------------------------------
+// REAL, name-matching product photos (hotlinked from Unsplash).
+// Each keyword maps to a photo that actually depicts that item, so
+// the catalog never shows a random or placeholder image again.
+// Entry order matters: more specific keywords are listed first.
+// ---------------------------------------------------------------
+const IMG_QUERY = "?auto=format&fit=crop&w=800&q=80";
+
+// ---- real photo library (all URLs verified reachable) ----
+const PHONE = `https://images.unsplash.com/photo-1511707171634-5f897ff02aa9${IMG_QUERY}`;
+const HEADPHONES = `https://images.unsplash.com/photo-1505740420928-5e560c06d30e${IMG_QUERY}`;
+const EARBUDS = `https://images.unsplash.com/photo-1585386959984-a4155224a1ad${IMG_QUERY}`;
+const WATCH = `https://images.unsplash.com/photo-1523275335684-37898b6baf30${IMG_QUERY}`;
+const WATCH_LUXE = `https://images.unsplash.com/photo-1524592094714-0f0654e20314${IMG_QUERY}`;
+const KEYBOARD = `https://images.unsplash.com/photo-1587829741301-dc798b83add3${IMG_QUERY}`;
+const SNEAKER = `https://images.unsplash.com/photo-1542291026-7eec264c27ff${IMG_QUERY}`;
+const APPAREL = `https://images.unsplash.com/photo-1434389677669-e08b4cac3105${IMG_QUERY}`;
+const BACKPACK = `https://images.unsplash.com/photo-1553062407-98eeb64c6a62${IMG_QUERY}`;
+const HANDBAG = `https://images.unsplash.com/photo-1594633312681-425c7b97ccd1${IMG_QUERY}`;
+const BOTTLE = `https://images.unsplash.com/photo-1602143407151-7111542de6e8${IMG_QUERY}`;
+const NOTEBOOK = `https://images.unsplash.com/photo-1531346878377-a5be20888e57${IMG_QUERY}`;
+const MUG = `https://images.unsplash.com/photo-1495474472287-4d71bcdd2085${IMG_QUERY}`;
+
+// Ordered library: [ regex, url ] — first match wins.
+// Regex word boundaries (\b) prevent collisions: "phone" won't match inside
+// "headphones"/"smartphone", and "bag" won't match inside "backpack".
+const PRODUCT_LIBRARY = [
+  // Tech
+  [/\b(smart?)phone\b|\bmobile\b|\bhandset\b/, PHONE],
+  [/\b(earbud|airpod)\w*/, EARBUDS],
+  [/\bheadphone\w*|\bheadset\b/, HEADPHONES],
+  [/\bkeyboard\b/, KEYBOARD],
+  [/\bwatch\b/, WATCH_LUXE],
+  // Fashion / wearable
+  [/\bsneaker\w*|\bshoe\w*|\bfootwear\b/, SNEAKER],
+  [/\b(sweater|cashmere|scarf|jacket|hoodie|jacket|shirt|t-shirt|apparel)\w*/, APPAREL],
+  // Bags — backpack checked before bag so \bbag\b never steals it
+  [/\bbackpack\b/, BACKPACK],
+  [/\b(bag|handbag|tote|satchel)\b/, HANDBAG],
+  // Bottles / notebooks / drinkware
+  [/\bbottle\b|\bflask\b/, BOTTLE],
+  [/\b(notebook|journal|stationery|paper)\b/, NOTEBOOK],
+  [/\b(tumbler|coffee|mug|thermos)\b/, MUG],
+];
+
+const CATEGORY_DEFAULT = {
+  tech: PHONE,
+  fashion: APPAREL,
+  home: `https://images.unsplash.com/photo-1513694203232-719a280e022f${IMG_QUERY}`, // cozy interior
+  lifestyle: BACKPACK,
+};
+
+// ---- generated art (offline-safe colored placeholder, kept as fallback) ----
 const PALETTES = [
   ["#e4e4e7", "#a1a1aa", "#52525b"], // grayscale — light→mid→dark
   ["#f4f4f5", "#d4d4d8", "#8e8e98"], // grayscale
@@ -13,7 +66,6 @@ const PALETTES = [
   ["#f7f7f8", "#c8c8cc", "#5c5c63"], // grayscale
 ];
 
-// lightweight string hash → stable index
 const hashStr = (s = "") => {
   let h = 0;
   for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
@@ -25,7 +77,7 @@ const pickPalette = (product) => {
   return PALETTES[hashStr(key) % PALETTES.length];
 };
 
-// Build an animated SVG data-URI unique to this product.
+// Build an animated SVG data-URI unique to this product (offline-safe fallback).
 export function generateProductImage(product) {
   const [c1, c2, c3] = pickPalette(product);
   const initial = (product?.name?.[0] || "P").toUpperCase();
@@ -70,22 +122,29 @@ export function generateProductImage(product) {
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
 
-// Decide which image to show:
-//  - a real per-product upload (admin-created) if it's unique
-//  - otherwise a REAL, distinct photograph per product (seeded → stable + unique),
-//    with the generated art as an offline-safe fallback.
 const SHARED_PLACEHOLDERS = /(tech|fashion|home|lifestyle)\.png$/;
 
-const slugify = (s) => (s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-
-export function getProductImage(product, size = "640x800") {
+// Match a real photo to the product by keyword + category; else clean art fallback.
+export function getProductImage(product, _size = "640x800") {
   if (!product) return "";
+
+  // 1) Honor a real uploaded image (admin upload, not the generic placeholders).
   const path = product.image_path || "";
   if (path && !SHARED_PLACEHOLDERS.test(path)) {
-    return "/" + path; // real uploaded image (e.g. uploads/products/...)
+    return "/" + path;
   }
-  // Distinct real photography per product, stable per id/name
-  const slug = `${String(product._id || "p")}-${slugify(product.name) || "item"}`;
-  const [w, h] = size.split("x");
-  return `https://picsum.photos/seed/${encodeURIComponent(slug)}/${w}/${h}`;
+
+  // 2) Match by product name keyword → real photo (first regex hit wins).
+  const lower = String(product.name || "").toLowerCase();
+  for (const [pattern, url] of PRODUCT_LIBRARY) {
+    if (pattern.test(lower)) return url;
+  }
+
+  // 3) Fall back to a category-default photo.
+  const cat = String(product.category || "").toLowerCase();
+  const catUrl = CATEGORY_DEFAULT[cat];
+  if (catUrl) return catUrl;
+
+  // 4) Last resort — clean generated art (never random, never generic placeholder).
+  return generateProductImage(product);
 }

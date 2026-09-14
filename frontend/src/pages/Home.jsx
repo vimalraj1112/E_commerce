@@ -8,7 +8,7 @@ import { ProductGridSkeleton, HeroSkeleton } from "../components/Skeletons";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 import { useCart } from "../context/CartContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { smartSearch, getRecommendations } from "../lib/aiEngine";
 import { fadeUp, staggerContainer, springTap } from "../utils/motion";
 
@@ -17,6 +17,16 @@ const CATEGORIES = ["All", "Tech", "Fashion", "Home", "Lifestyle"];
 const MARQUEE = [
   "Free Shipping", "Premium Quality", "AI-Powered Recommendations", "Secure Checkout",
   "30-Day Returns", "Handpicked Collection", "5000+ Happy Customers",
+];
+
+// Product collage featured on the hero — real photos in full color on soft pastel
+// gradient cards. `bg` is the pastel gradient; `pos` places each card in a corner on
+// desktop; `float` staggers the idle bob.
+const COLLAGE = [
+  { label: "Sneakers", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80", bg: "from-emerald-100 to-teal-100", pos: "left-8 top-8", float: "-0.6s" },
+  { label: "Earbuds", img: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=600&q=80", bg: "from-violet-100 to-fuchsia-100", pos: "right-8 top-8", float: "-1.2s" },
+  { label: "Bags", img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=600&q=80", bg: "from-rose-100 to-amber-100", pos: "left-8 bottom-8", float: "-1.8s" },
+  { label: "Watches", img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80", bg: "from-sky-100 to-indigo-100", pos: "right-8 bottom-8", float: "-2.4s" },
 ];
 
 // ---------- Managed viewed-history ----------
@@ -108,11 +118,47 @@ const Home = () => {
 
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden rounded-[2.5rem] border border-[#d2cfcd] bg-[#d6d3d1]/35 backdrop-blur-lg px-6 py-16 sm:px-12 sm:py-24 text-center">
-        {/* soft glow orbs over the aurora */}
-        <div className="glow-orb h-64 w-64 -top-10 -left-10 bg-neutral-300/60" />
-        <div className="glow-orb h-64 w-64 -bottom-16 -right-10 bg-neutral-400/50" style={{ animationDelay: "4s" }} />
+        {/* soft pastel glow orbs over the aurora (echo the collage colors) */}
+        <div className="glow-orb h-64 w-64 -top-10 -left-10 bg-emerald-200/70" />
+        <div className="glow-orb h-64 w-64 -bottom-16 -right-10 bg-violet-200/70" style={{ animationDelay: "4s" }} />
 
-        <motion.div variants={fadeUp} initial="hidden" animate="visible" viewport={{ once: true }} className="relative">
+        {/* ===== product collage — desktop: 4 floating glass cards, each linking to a real product ===== */}
+        <motion.div
+          variants={staggerContainer(0.14)}
+          initial="hidden"
+          animate="visible"
+          className="absolute inset-0 z-0 hidden md:block"
+        >
+          {COLLAGE.map((c, i) => {
+            const linked = allProducts.find((p) =>
+              String(p.name).toLowerCase().includes(c.label.toLowerCase().replace(/s$/, ""))
+            );
+            const inner = (
+              <div className={`rounded-3xl bg-gradient-to-br p-2 shadow-lg shadow-neutral-300/60 ${c.bg}`}>
+                <img src={c.img} alt={c.label} className="aspect-square w-full rounded-2xl object-cover" />
+                <span className="mt-1.5 block text-center text-[10px] font-black uppercase tracking-widest text-neutral-700">{c.label}</span>
+              </div>
+            );
+            return (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                className={`float-y absolute w-40 lg:w-44 ${c.pos}`}
+                style={{ animationDelay: c.float }}
+              >
+                {linked ? (
+                  <Link to={`/product/${linked._id}`} className="block transition-transform hover:scale-105" title={`View ${linked.name}`}>
+                    {inner}
+                  </Link>
+                ) : (
+                  inner
+                )}
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        <motion.div variants={fadeUp} initial="hidden" animate="visible" viewport={{ once: true }} className="relative z-10">
           <span className="inline-flex items-center gap-2 rounded-full bg-[#d6d3d1]/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-neutral-700">
             <Sparkles className="h-3.5 w-3.5" /> AI-Curated Store
           </span>
@@ -147,6 +193,23 @@ const Home = () => {
               Free shipping · 30-day returns
             </span>
           </div>
+        </motion.div>
+
+        {/* ===== product collage — mobile: compact 2x2 strip under the CTA ===== */}
+        <motion.div
+          variants={staggerContainer(0.1)}
+          initial="hidden"
+          animate="visible"
+          className="relative z-10 mt-10 grid grid-cols-2 gap-3 sm:hidden"
+        >
+          {COLLAGE.map((c, i) => (
+            <motion.div key={i} variants={fadeUp}>
+              <div className={`rounded-3xl bg-gradient-to-br p-2 shadow-md shadow-neutral-300/60 ${c.bg}`}>
+                <img src={c.img} alt={c.label} className="aspect-square w-full rounded-2xl object-cover" />
+                <span className="mt-1.5 block text-center text-[10px] font-black uppercase tracking-widest text-neutral-700">{c.label}</span>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </section>
 
