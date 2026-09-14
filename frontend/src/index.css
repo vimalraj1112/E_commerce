@@ -156,6 +156,66 @@ body {
   pointer-events: none;
 }
 
+/* ---------- Premium shine + animated border (black & white) ---------- */
+/* A soft light streak that sweeps across a button/card on an infinite loop */
+.shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  height: 100%;
+  width: 65%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: skewX(-20deg);
+  animation: shine-sweep 3.4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes shine-sweep {
+  0% { left: -130%; }
+  60% { left: 130%; }
+  100% { left: 130%; }
+}
+
+/* Premium frosted card with an animated silver border that glints in motion */
+.premium-border {
+  position: relative;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-radius: 2rem;
+}
+.premium-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(120deg, #d4d4d8, #ffffff, #a1a1aa, #fafafa, #d4d4d8);
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-sheen 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes border-sheen {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* Gentle idle float for premium orbs/cards */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.float-y { animation: float-y 5s ease-in-out infinite; }
+
 /* Glow orb for hero */
 .glow-orb {
   position: absolute;

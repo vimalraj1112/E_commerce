@@ -89,7 +89,7 @@ const AdminDashboard = () => {
         }
     };
 
-    if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin h-10 w-10 text-primary-600" /></div>;
+    if (loading) return <div className="flex justify-center py-20"><Loader2 className="animate-spin h-10 w-10 text-neutral-900" /></div>;
 
     return (
         <div className="space-y-8 animate-in fade-in duration-700">
@@ -145,7 +145,7 @@ const AdminDashboard = () => {
                         <h2 className="text-2xl font-bold text-gray-900">Inventory Management</h2>
                         <button 
                             onClick={() => { setShowForm(true); setEditingProduct(null); }}
-                            className="bg-primary-600 text-white px-4 py-2 rounded-xl flex items-center font-bold hover:bg-primary-700 transition-all shadow-md active:scale-95"
+                            className="bg-neutral-900 text-white px-4 py-2 rounded-xl flex items-center font-bold hover:bg-neutral-800 transition-all shadow-md active:scale-95"
                         >
                             <Plus className="h-5 w-5 mr-1" /> Add Product
                         </button>
@@ -159,14 +159,14 @@ const AdminDashboard = () => {
                                     placeholder="Product Name"
                                     value={formData.name}
                                     required
-                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all"
+                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-neutral-500 focus:outline-none transition-all"
                                     onChange={e => setFormData({...formData, name: e.target.value})}
                                 />
                                 <input
                                     placeholder="Category"
                                     value={formData.category}
                                     required
-                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all"
+                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-neutral-500 focus:outline-none transition-all"
                                     onChange={e => setFormData({...formData, category: e.target.value})}
                                 />
                                 <input
@@ -174,7 +174,7 @@ const AdminDashboard = () => {
                                     placeholder="Price"
                                     value={formData.price}
                                     required
-                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all"
+                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-neutral-500 focus:outline-none transition-all"
                                     onChange={e => setFormData({...formData, price: e.target.value})}
                                 />
                                 <input
@@ -182,12 +182,12 @@ const AdminDashboard = () => {
                                     placeholder="Stock Quantity"
                                     value={formData.stock_quantity}
                                     required
-                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all"
+                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-neutral-500 focus:outline-none transition-all"
                                     onChange={e => setFormData({...formData, stock_quantity: e.target.value})}
                                 />
                                 <textarea
                                     placeholder="Description"
-                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all md:col-span-2"
+                                    className="p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-neutral-500 focus:outline-none transition-all md:col-span-2"
                                     value={formData.description}
                                     onChange={e => setFormData({...formData, description: e.target.value})}
                                 />
@@ -196,7 +196,7 @@ const AdminDashboard = () => {
                                     <input
                                         type="file"
                                         accept="image/*"
-                                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 transition-all"
+                                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-neutral-50 file:text-neutral-800 hover:file:bg-neutral-100 transition-all"
                                         onChange={e => setImageFile(e.target.files[0])}
                                     />
                                 </div>
@@ -210,7 +210,7 @@ const AdminDashboard = () => {
                                     </button>
                                     <button 
                                         type="submit"
-                                        className="bg-primary-600 text-white px-8 py-2 rounded-xl font-bold hover:bg-primary-700 transition-all shadow-lg active:scale-95"
+                                        className="bg-neutral-900 text-white px-8 py-2 rounded-xl font-bold hover:bg-neutral-800 transition-all shadow-lg active:scale-95"
                                     >
                                         {editingProduct ? 'Update Product' : 'Create Product'}
                                     </button>
@@ -273,7 +273,7 @@ const AdminDashboard = () => {
                                                         });
                                                         setShowForm(true);
                                                     }}
-                                                    className="text-primary-600 hover:text-primary-900 p-2 hover:bg-primary-50 rounded-lg transition-all"
+                                                    className="text-neutral-900 hover:text-neutral-900 p-2 hover:bg-neutral-50 rounded-lg transition-all"
                                                 >
                                                     <Edit className="h-5 w-5" />
                                                 </button>
@@ -309,7 +309,7 @@ const AdminDashboard = () => {
                                             </div>
                                             <div className="ml-4">
                                                 <h4 className="text-sm font-black text-gray-900">{product.name}</h4>
-                                                <span className="text-[10px] font-bold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full uppercase tracking-tighter">
+                                                <span className="text-[10px] font-bold text-neutral-900 bg-neutral-50 px-2 py-0.5 rounded-full uppercase tracking-tighter">
                                                     {product.category}
                                                 </span>
                                             </div>
@@ -327,7 +327,7 @@ const AdminDashboard = () => {
                                                     });
                                                     setShowForm(true);
                                                 }}
-                                                className="p-2 text-gray-400 hover:text-primary-600 transition-colors"
+                                                className="p-2 text-gray-400 hover:text-neutral-900 transition-colors"
                                             >
                                                 <Edit className="h-5 w-5" />
                                             </button>
@@ -379,7 +379,7 @@ const AdminDashboard = () => {
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-medium">
                                                 {new Date(order.created_at).toLocaleDateString()}
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-extrabold text-primary-600">${order.total_price.toFixed(2)}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-extrabold text-neutral-900">${order.total_price.toFixed(2)}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full ${order.status === 'Delivered' ? 'bg-neutral-800 text-white' : 'bg-neutral-200 text-neutral-800'}`}>
                                                     {order.status}
@@ -389,7 +389,7 @@ const AdminDashboard = () => {
                                                 <select 
                                                     value={order.status}
                                                     onChange={(e) => handleUpdateStatus(order._id, e.target.value)}
-                                                    className="text-sm font-bold border-gray-200 rounded-lg p-1 bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all cursor-pointer"
+                                                    className="text-sm font-bold border-gray-200 rounded-lg p-1 bg-gray-50 text-gray-700 focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-all cursor-pointer"
                                                 >
                                                     <option value="Pending">Pending</option>
                                                     <option value="Processing">Processing</option>
@@ -420,7 +420,7 @@ const AdminDashboard = () => {
                                     <div className="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-2xl">
                                         <div>
                                             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Amount</p>
-                                            <p className="text-sm font-black text-primary-600">${order.total_price.toFixed(2)}</p>
+                                            <p className="text-sm font-black text-neutral-900">${order.total_price.toFixed(2)}</p>
                                         </div>
                                         <div>
                                             <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Date</p>
@@ -432,7 +432,7 @@ const AdminDashboard = () => {
                                         <select 
                                             value={order.status}
                                             onChange={(e) => handleUpdateStatus(order._id, e.target.value)}
-                                            className="w-full text-sm font-bold border border-gray-200 rounded-xl p-3 bg-white text-gray-700 focus:ring-2 focus:ring-primary-500 transition-all font-black uppercase tracking-widest"
+                                            className="w-full text-sm font-bold border border-gray-200 rounded-xl p-3 bg-white text-gray-700 focus:ring-2 focus:ring-neutral-500 transition-all font-black uppercase tracking-widest"
                                         >
                                             <option value="Pending">Pending</option>
                                             <option value="Processing">Processing</option>

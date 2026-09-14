@@ -138,7 +138,7 @@ const Home = () => {
                   el.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-700 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-neutral-400 transition-transform hover:scale-105"
+              className="shine group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-700 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-neutral-400 transition-transform hover:scale-105"
             >
               Browse Collection
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

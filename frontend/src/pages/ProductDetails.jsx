@@ -55,7 +55,7 @@ const ProductDetails = () => {
 
     if (loading) return (
         <div className="flex justify-center items-center h-64">
-            <Loader2 className="h-8 w-8 text-primary-600 animate-spin" />
+            <Loader2 className="h-8 w-8 text-neutral-900 animate-spin" />
         </div>
     );
 
@@ -65,7 +65,7 @@ const ProductDetails = () => {
         <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
             <button 
                 onClick={() => navigate(-1)}
-                className="flex items-center text-gray-500 hover:text-primary-600 font-bold transition-colors group"
+                className="flex items-center text-gray-500 hover:text-neutral-900 font-bold transition-colors group"
             >
                 <ArrowLeft className="h-5 w-5 mr-2 group-hover:-translate-x-1 transition-transform" />
                 Back to Collection
@@ -97,7 +97,7 @@ const ProductDetails = () => {
                                     {product.name}
                                 </h1>
                                 <div className="flex items-center space-x-4">
-                                    <span className="text-4xl font-black text-primary-600">
+                                    <span className="text-4xl font-black text-neutral-900">
                                         ${product.price?.toFixed(2)}
                                     </span>
                                     {product.stock_quantity > 0 ? (
@@ -123,14 +123,14 @@ const ProductDetails = () => {
                                         <div className="flex items-center border border-gray-200 rounded-2xl bg-gray-50 p-1">
                                             <button 
                                                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                                className="w-10 h-10 flex items-center justify-center font-bold text-gray-600 hover:text-primary-600 transition-colors"
+                                                className="w-10 h-10 flex items-center justify-center font-bold text-gray-600 hover:text-neutral-900 transition-colors"
                                             >
                                                 -
                                             </button>
                                             <span className="w-12 text-center font-black text-gray-900">{quantity}</span>
                                             <button 
                                                 onClick={() => setQuantity(Math.min(product.stock_quantity, quantity + 1))}
-                                                className="w-10 h-10 flex items-center justify-center font-bold text-gray-600 hover:text-primary-600 transition-colors"
+                                                className="w-10 h-10 flex items-center justify-center font-bold text-gray-600 hover:text-neutral-900 transition-colors"
                                             >
                                                 +
                                             </button>
@@ -139,7 +139,7 @@ const ProductDetails = () => {
                                     <button
                                         disabled={adding || product.stock_quantity === 0 || isAdmin}
                                         onClick={handleAddToCart}
-                                        className="flex-grow flex items-center justify-center bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 text-white py-4 px-8 rounded-2xl font-black text-lg shadow-xl shadow-primary-100 transition-all active:scale-[0.98] group"
+                                        className="flex-grow flex items-center justify-center bg-neutral-900 hover:bg-neutral-800 disabled:bg-gray-300 text-white py-4 px-8 rounded-2xl font-black text-lg shadow-xl shadow-neutral-100 transition-all active:scale-[0.98] group"
                                     >
                                         {adding ? <Loader2 className="h-6 w-6 animate-spin text-white" /> : (
                                             <>
@@ -177,7 +177,7 @@ const ProductDetails = () => {
                     { icon: ArrowLeft, title: 'Easy Returns', desc: '30-day window' }
                 ].map((f, i) => (
                     <div key={i} className="glass-card p-6 rounded-3xl flex items-center space-x-4 shadow-sm">
-                        <div className="p-3 bg-primary-100 rounded-2xl text-primary-600">
+                        <div className="p-3 bg-neutral-100 rounded-2xl text-neutral-900">
                             <f.icon className="h-6 w-6" />
                         </div>
                         <div>

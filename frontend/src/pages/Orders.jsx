@@ -6,7 +6,7 @@ import { Package, Clock, CheckCircle, Truck, XCircle, ChevronRight, Loader2 } fr
 const StatusIcon = ({ status }) => {
     switch (status) {
         case 'Pending': return <Clock className="h-5 w-5 text-neutral-600" />;
-        case 'Processing': return <div className="h-5 w-5 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />;
+        case 'Processing': return <div className="h-5 w-5 border-2 border-neutral-500 border-t-transparent rounded-full animate-spin" />;
         case 'Shipped': return <Truck className="h-5 w-5 text-neutral-600" />;
         case 'Delivered': return <CheckCircle className="h-5 w-5 text-neutral-600" />;
         case 'Cancelled': return <XCircle className="h-5 w-5 text-neutral-600" />;
@@ -32,7 +32,7 @@ const Orders = () => {
         fetchOrders();
     }, []);
 
-    if (loading) return <div className="flex justify-center py-12"><Loader2 className="animate-spin text-primary-600 h-8 w-8" /></div>;
+    if (loading) return <div className="flex justify-center py-12"><Loader2 className="animate-spin text-neutral-900 h-8 w-8" /></div>;
 
     return (
         <div className="max-w-5xl mx-auto space-y-12 animate-in fade-in duration-500">
@@ -48,7 +48,7 @@ const Orders = () => {
                     </div>
                     <h2 className="text-2xl font-black text-gray-900 mb-2">No orders yet</h2>
                     <p className="text-gray-500 font-medium mb-8">Your future treasures will appear here.</p>
-                    <Link to="/" className="bg-primary-600 text-white px-8 py-4 rounded-2xl hover:bg-primary-700 transition-all font-black shadow-lg shadow-primary-100 active:scale-95">
+                    <Link to="/" className="bg-neutral-900 text-white px-8 py-4 rounded-2xl hover:bg-neutral-800 transition-all font-black shadow-lg shadow-neutral-100 active:scale-95">
                         Start Shopping
                     </Link>
                 </div>
@@ -76,7 +76,7 @@ const Orders = () => {
                                             <StatusIcon status={order.status} />
                                             <span className="font-black text-gray-900 text-sm italic">{order.status}</span>
                                         </div>
-                                        <button className="p-2 text-gray-300 hover:text-primary-600 transition-colors">
+                                        <button className="p-2 text-gray-300 hover:text-neutral-900 transition-colors">
                                             <ChevronRight className="h-6 w-6" />
                                         </button>
                                     </div>
@@ -86,7 +86,7 @@ const Orders = () => {
                                     {order.items.map((item, idx) => (
                                         <div key={idx} className="flex justify-between items-center bg-gray-50/50 p-4 rounded-2xl border border-transparent hover:border-gray-100 hover:bg-white transition-all">
                                             <div className="flex items-center space-x-4">
-                                                <div className="h-12 w-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-50 italic font-black text-primary-600">
+                                                <div className="h-12 w-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-50 italic font-black text-neutral-900">
                                                     {item.quantity}
                                                 </div>
                                                 <div>
@@ -106,7 +106,7 @@ const Orders = () => {
                                     </div>
                                     <div className="flex flex-col items-end">
                                         <span className="text-xs text-gray-400 font-black uppercase tracking-widest mb-1">Total investment</span>
-                                        <span className="text-4xl font-black text-primary-600 tracking-tighter">${order.total_price.toFixed(2)}</span>
+                                        <span className="text-4xl font-black text-neutral-900 tracking-tighter">${order.total_price.toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>

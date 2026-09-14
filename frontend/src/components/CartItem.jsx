@@ -19,7 +19,7 @@ const CartItem = ({ item, updateQty, removeItem }) => {
                 <div>
                     <div className="flex justify-between items-start">
                         <div>
-                            <h3 className="text-xl font-black text-gray-900 tracking-tight leading-tight group-hover:text-primary-600 transition-colors">
+                            <h3 className="text-xl font-black text-gray-900 tracking-tight leading-tight group-hover:text-neutral-900 transition-colors">
                                 {product.name}
                             </h3>
                             <p className="mt-1 text-xs text-gray-400 font-bold uppercase tracking-widest">{product.category}</p>
@@ -32,14 +32,14 @@ const CartItem = ({ item, updateQty, removeItem }) => {
                     <div className="flex items-center space-x-4 bg-gray-50 p-1.5 rounded-xl border border-gray-100">
                         <button 
                             onClick={() => updateQty(product._id, quantity - 1)}
-                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white shadow-sm text-gray-500 hover:text-primary-600 hover:shadow-md transition-all active:scale-90"
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white shadow-sm text-gray-500 hover:text-neutral-900 hover:shadow-md transition-all active:scale-90"
                         >
                             <Minus className="h-4 w-4" />
                         </button>
                         <span className="w-6 text-center font-black text-gray-900">{quantity}</span>
                         <button 
                             onClick={() => updateQty(product._id, quantity + 1)}
-                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white shadow-sm text-gray-500 hover:text-primary-600 hover:shadow-md transition-all active:scale-90"
+                            className="w-8 h-8 flex items-center justify-center rounded-lg bg-white shadow-sm text-gray-500 hover:text-neutral-900 hover:shadow-md transition-all active:scale-90"
                         >
                             <Plus className="h-4 w-4" />
                         </button>

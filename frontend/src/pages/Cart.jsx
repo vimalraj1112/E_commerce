@@ -33,7 +33,7 @@ const Cart = () => {
             <ShoppingBag className="mx-auto h-12 w-12 text-gray-400 mb-4" />
             <h2 className="text-xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
             <p className="text-gray-500 mb-8">Looks like you haven't added anything to your cart yet.</p>
-            <Link to="/" className="bg-primary-600 text-white px-6 py-3 rounded-xl hover:bg-primary-700 transition-colors font-medium">
+            <Link to="/" className="bg-neutral-900 text-white px-6 py-3 rounded-xl hover:bg-neutral-800 transition-colors font-medium">
                 Continue Shopping
             </Link>
         </div>
@@ -48,7 +48,7 @@ const Cart = () => {
                 </div>
                 <div className="bg-gray-50 px-6 py-3 rounded-2xl border border-gray-100 shadow-sm">
                     <span className="text-sm font-bold text-gray-400 uppercase tracking-widest mr-2">Subtotal:</span>
-                    <span className="text-2xl font-black text-primary-600">${cart.total_price.toFixed(2)}</span>
+                    <span className="text-2xl font-black text-neutral-900">${cart.total_price.toFixed(2)}</span>
                 </div>
             </header>
 
@@ -67,8 +67,8 @@ const Cart = () => {
                         </ul>
                     </div>
 
-                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-primary-600 font-bold transition-all group">
-                        <div className="bg-gray-100 p-2 rounded-xl mr-3 group-hover:bg-primary-50 transition-colors">
+                    <Link to="/" className="inline-flex items-center text-gray-500 hover:text-neutral-900 font-bold transition-all group">
+                        <div className="bg-gray-100 p-2 rounded-xl mr-3 group-hover:bg-neutral-50 transition-colors">
                             <ShoppingBag className="h-5 w-5" />
                         </div>
                         Continue Shopping
@@ -76,7 +76,7 @@ const Cart = () => {
                 </div>
 
                 <section className="lg:col-span-4 mt-12 lg:mt-0 lg:sticky lg:top-24">
-                    <div className="glass-card rounded-[2.5rem] shadow-2xl shadow-primary-900/10 p-8 space-y-8">
+                    <div className="glass-card rounded-[2.5rem] shadow-2xl shadow-neutral-900/10 p-8 space-y-8">
                         <h2 className="text-2xl font-black text-gray-900 tracking-tight">Summary</h2>
                         
                         <div className="space-y-4">
@@ -90,14 +90,14 @@ const Cart = () => {
                             </div>
                             <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
                                 <span className="text-xl font-black text-gray-900">Total</span>
-                                <span className="text-2xl font-black text-primary-600">${cart.total_price.toFixed(2)}</span>
+                                <span className="text-2xl font-black text-neutral-900">${cart.total_price.toFixed(2)}</span>
                             </div>
                         </div>
 
                         <button
                             onClick={handleCheckout}
                             disabled={placingOrder}
-                            className="w-full bg-primary-600 hover:bg-primary-700 text-white py-5 rounded-2xl font-black text-lg shadow-xl shadow-primary-200 transition-all active:scale-[0.98] flex items-center justify-center group"
+                            className="w-full bg-neutral-900 hover:bg-neutral-800 text-white py-5 rounded-2xl font-black text-lg shadow-xl shadow-neutral-200 transition-all active:scale-[0.98] flex items-center justify-center group"
                         >
                             {placingOrder ? <Loader2 className="animate-spin h-6 w-6" /> : (
                                 <>

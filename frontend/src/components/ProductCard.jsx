@@ -109,7 +109,7 @@ const ProductCard = ({ product, addToCart, index = 0 }) => {
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => addToCart(product._id)}
-                className="p-3 bg-gradient-to-tr from-neutral-900 to-neutral-700 text-white rounded-xl hover:from-neutral-700 hover:to-neutral-500 shadow-lg shadow-neutral-400/80 transition-all"
+                className="shine p-3 bg-gradient-to-tr from-neutral-900 to-neutral-700 text-white rounded-xl hover:from-neutral-700 hover:to-neutral-500 shadow-lg shadow-neutral-400/80 transition-all"
                 title="Add to Cart"
               >
                 <ShoppingCart className="h-5 w-5" />
