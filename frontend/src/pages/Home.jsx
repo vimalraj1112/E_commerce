@@ -107,13 +107,13 @@ const Home = () => {
       <Marquee />
 
       {/* ============ HERO ============ */}
-      <section className="relative overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/20 backdrop-blur-md px-6 py-16 sm:px-12 sm:py-24 text-center">
+      <section className="relative overflow-hidden rounded-[2.5rem] border border-[#d2cfcd] bg-[#d6d3d1]/35 backdrop-blur-lg px-6 py-16 sm:px-12 sm:py-24 text-center">
         {/* soft glow orbs over the aurora */}
         <div className="glow-orb h-64 w-64 -top-10 -left-10 bg-neutral-300/60" />
         <div className="glow-orb h-64 w-64 -bottom-16 -right-10 bg-neutral-400/50" style={{ animationDelay: "4s" }} />
 
         <motion.div variants={fadeUp} initial="hidden" animate="visible" viewport={{ once: true }} className="relative">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-neutral-700">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#d6d3d1]/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-neutral-700">
             <Sparkles className="h-3.5 w-3.5" /> AI-Curated Store
           </span>
 
