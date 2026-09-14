@@ -36,12 +36,12 @@ const Wishlist = () => {
   if (items.length === 0) {
     return (
       <div className="text-center py-28 max-w-md mx-auto">
-        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 16 }} className="inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-tr from-pink-500 to-rose-500 shadow-xl shadow-pink-200 mb-6">
+        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 16 }} className="inline-flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-tr from-neutral-800 to-neutral-600 shadow-xl shadow-neutral-300 mb-6">
           <Heart className="h-9 w-9 text-white" />
         </motion.div>
         <h2 className="text-3xl font-black text-gray-900 font-display mb-2">Your wishlist is empty</h2>
         <p className="text-gray-500 font-medium mb-8">Tap the heart on any product to save it here for later.</p>
-        <Link to="/" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-500 text-white px-7 py-4 font-black">
+        <Link to="/" className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-tr from-neutral-900 to-neutral-700 text-white px-7 py-4 font-black">
           Discover Products <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
@@ -70,14 +70,14 @@ const Wishlist = () => {
                 </span>
               </Link>
               <div className="p-5">
-                <h3 className="font-black text-gray-900 mb-1 group-hover:text-sky-600 transition-colors line-clamp-1">{p.name}</h3>
+                <h3 className="font-black text-gray-900 mb-1 group-hover:text-neutral-700 transition-colors line-clamp-1">{p.name}</h3>
                 <div className="flex items-center justify-between mt-3">
                   <span className="text-xl font-black text-gray-900">${Number(p.price).toFixed(2)}</span>
                   <div className="flex items-center space-x-2">
                     <motion.button
                       whileTap={{ scale: 0.85 }}
                       onClick={() => toggle(p._id)}
-                      className="p-2.5 bg-gray-50 text-rose-500 hover:bg-rose-50 rounded-xl transition-colors"
+                      className="p-2.5 bg-gray-50 text-neutral-700 hover:bg-neutral-100 rounded-xl transition-colors"
                       title="Remove"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -86,7 +86,7 @@ const Wishlist = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.92 }}
                       onClick={() => addItem(p, 1)}
-                      className="flex items-center gap-1.5 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-500 text-white px-4 py-2.5 text-sm font-bold shadow-lg shadow-sky-200"
+                      className="flex items-center gap-1.5 rounded-xl bg-gradient-to-tr from-neutral-900 to-neutral-700 text-white px-4 py-2.5 text-sm font-bold shadow-lg shadow-neutral-300"
                     >
                       <ShoppingCart className="h-4 w-4" /> Add
                     </motion.button>

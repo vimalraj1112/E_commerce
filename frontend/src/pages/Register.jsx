@@ -27,7 +27,7 @@ const Register = () => {
                     </div>
 
                     {error && (
-                        <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center text-red-600 text-sm font-bold animate-in fade-in duration-300">
+                        <div className="mb-6 p-4 bg-neutral-100 border border-neutral-200 rounded-2xl flex items-center text-neutral-800 text-sm font-bold animate-in fade-in duration-300">
                              {error}
                         </div>
                     )}

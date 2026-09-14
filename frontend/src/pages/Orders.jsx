@@ -5,11 +5,11 @@ import { Package, Clock, CheckCircle, Truck, XCircle, ChevronRight, Loader2 } fr
 
 const StatusIcon = ({ status }) => {
     switch (status) {
-        case 'Pending': return <Clock className="h-5 w-5 text-amber-500" />;
+        case 'Pending': return <Clock className="h-5 w-5 text-neutral-600" />;
         case 'Processing': return <div className="h-5 w-5 border-2 border-primary-500 border-t-transparent rounded-full animate-spin" />;
-        case 'Shipped': return <Truck className="h-5 w-5 text-blue-500" />;
-        case 'Delivered': return <CheckCircle className="h-5 w-5 text-green-500" />;
-        case 'Cancelled': return <XCircle className="h-5 w-5 text-red-500" />;
+        case 'Shipped': return <Truck className="h-5 w-5 text-neutral-600" />;
+        case 'Delivered': return <CheckCircle className="h-5 w-5 text-neutral-600" />;
+        case 'Cancelled': return <XCircle className="h-5 w-5 text-neutral-600" />;
         default: return <Package className="h-5 w-5 text-gray-500" />;
     }
 };

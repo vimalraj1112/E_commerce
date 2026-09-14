@@ -86,7 +86,7 @@ const Cart = () => {
                             </div>
                             <div className="flex items-center justify-between text-sm font-bold">
                                 <span className="text-gray-400 uppercase tracking-wider">Shipping</span>
-                                <span className="text-green-600 uppercase tracking-wider">Free</span>
+                                <span className="text-neutral-800 uppercase tracking-wider">Free</span>
                             </div>
                             <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
                                 <span className="text-xl font-black text-gray-900">Total</span>

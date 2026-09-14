@@ -34,7 +34,7 @@ const Marquee = () => (
       {[...MARQUEE, ...MARQUEE].map((t, i) => (
         <span key={i} className="flex items-center gap-8 whitespace-nowrap text-xs font-black uppercase tracking-[0.25em] text-gray-400">
           <span className="text-gradient">{t}</span>
-          <span className="text-sky-200">✦</span>
+          <span className="text-neutral-400">✦</span>
         </span>
       ))}
     </div>
@@ -109,11 +109,11 @@ const Home = () => {
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/20 backdrop-blur-md px-6 py-16 sm:px-12 sm:py-24 text-center">
         {/* soft glow orbs over the aurora */}
-        <div className="glow-orb h-64 w-64 -top-10 -left-10 bg-sky-400/50" />
-        <div className="glow-orb h-64 w-64 -bottom-16 -right-10 bg-fuchsia-400/50" style={{ animationDelay: "4s" }} />
+        <div className="glow-orb h-64 w-64 -top-10 -left-10 bg-neutral-300/60" />
+        <div className="glow-orb h-64 w-64 -bottom-16 -right-10 bg-neutral-400/50" style={{ animationDelay: "4s" }} />
 
         <motion.div variants={fadeUp} initial="hidden" animate="visible" viewport={{ once: true }} className="relative">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sky-700">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-neutral-700">
             <Sparkles className="h-3.5 w-3.5" /> AI-Curated Store
           </span>
 
@@ -138,7 +138,7 @@ const Home = () => {
                   el.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-600 to-indigo-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-sky-200 transition-transform hover:scale-105"
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-neutral-900 to-neutral-700 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-neutral-400 transition-transform hover:scale-105"
             >
               Browse Collection
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -154,7 +154,7 @@ const Home = () => {
       {recommendations.length >= 4 && (
         <section id="ai-recommended" className="space-y-6 animate-in">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-500 shadow-lg shadow-sky-200">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-tr from-neutral-800 to-neutral-600 shadow-lg shadow-neutral-400">
               <Sparkles className="h-5 w-5 text-white" />
             </span>
             <div>
@@ -191,7 +191,7 @@ const Home = () => {
               onFocus={() => setSearchFocused(true)}
               onBlur={() => setTimeout(() => setSearchFocused(false), 140)}
               placeholder="Try 'wireless' or 'sneakers'..."
-              className="glass-card block w-full pl-12 pr-4 py-4 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-white/80 focus:border-sky-300 shadow-sm transition-all font-medium"
+              className="glass-card block w-full pl-12 pr-4 py-4 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-neutral-200 focus:border-neutral-400 shadow-sm transition-all font-medium"
             />
             {(searchFocused || searchTerm.trim()) && (
               <SearchSuggestions
@@ -218,7 +218,7 @@ const Home = () => {
               }`}
             >
               {activeCat === cat && (
-                <motion.span layoutId="pill" className="absolute inset-0 rounded-full bg-gradient-to-tr from-sky-600 to-indigo-600 shadow-lg shadow-sky-200" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
+                <motion.span layoutId="pill" className="absolute inset-0 rounded-full bg-gradient-to-tr from-neutral-900 to-neutral-700 shadow-lg shadow-neutral-400" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
               )}
               <span className="relative">{cat}</span>
             </motion.button>

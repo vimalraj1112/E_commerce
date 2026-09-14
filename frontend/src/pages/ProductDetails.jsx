@@ -101,12 +101,12 @@ const ProductDetails = () => {
                                         ${product.price?.toFixed(2)}
                                     </span>
                                     {product.stock_quantity > 0 ? (
-                                        <span className="inline-flex items-center text-sm font-bold text-green-600 bg-green-50 px-3 py-1 rounded-lg">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-green-600 mr-2 animate-pulse" />
+                                        <span className="inline-flex items-center text-sm font-bold text-neutral-800 bg-neutral-100 px-3 py-1 rounded-lg">
+                                            <div className="h-1.5 w-1.5 rounded-full bg-neutral-800 mr-2 animate-pulse" />
                                             {product.stock_quantity} in stock
                                         </span>
                                     ) : (
-                                        <span className="text-sm font-bold text-red-600 bg-red-50 px-3 py-1 rounded-lg">Out of stock</span>
+                                        <span className="text-sm font-bold text-neutral-800 bg-neutral-100 px-3 py-1 rounded-lg">Out of stock</span>
                                     )}
                                 </div>
                             </div>
@@ -152,7 +152,7 @@ const ProductDetails = () => {
                                         <button
                                             onClick={() => toggle(product._id)}
                                             className={`flex items-center justify-center p-4 rounded-2xl border border-gray-200 transition-all active:scale-95 ${
-                                                isSaved(product._id) ? 'bg-rose-50 border-rose-200 text-rose-600' : 'text-gray-400 hover:text-rose-500 hover:border-rose-200'
+                                                isSaved(product._id) ? 'bg-neutral-100 border-neutral-300 text-neutral-700' : 'text-gray-400 hover:text-neutral-700 hover:border-neutral-300'
                                             }`}
                                             title="Save to wishlist"
                                         >

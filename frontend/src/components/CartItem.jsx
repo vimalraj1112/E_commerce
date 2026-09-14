@@ -48,9 +48,9 @@ const CartItem = ({ item, updateQty, removeItem }) => {
                     <button
                         type="button"
                         onClick={() => removeItem(product._id)}
-                        className="flex items-center text-xs font-black uppercase tracking-widest text-red-400 hover:text-red-600 transition-all group/remove"
+                        className="flex items-center text-xs font-black uppercase tracking-widest text-neutral-500 hover:text-neutral-800 transition-all group/remove"
                     >
-                        <div className="p-2 rounded-lg group-hover/remove:bg-red-50 transition-colors mr-2">
+                        <div className="p-2 rounded-lg group-hover/remove:bg-neutral-100 transition-colors mr-2">
                             <Trash2 className="h-4 w-4" />
                         </div>
                         Remove

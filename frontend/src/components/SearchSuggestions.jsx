@@ -52,7 +52,7 @@ const SearchSuggestions = ({ query, all, onClear }) => {
                 >
                   <button
                     onClick={() => navigate(`/product/${p._id}`)}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-sky-50/60 transition-colors group"
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-neutral-100/60 transition-colors group"
                   >
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gray-50 border border-gray-100">
                       <img
@@ -62,7 +62,7 @@ const SearchSuggestions = ({ query, all, onClear }) => {
                       />
                     </span>
                     <span className="flex-1 min-w-0">
-                      <span className="block text-sm font-bold text-gray-800 group-hover:text-sky-600 transition-colors truncate">
+                      <span className="block text-sm font-bold text-gray-800 group-hover:text-neutral-700 transition-colors truncate">
                         {p.name}
                       </span>
                       <span className="block text-[11px] text-gray-400 font-semibold uppercase tracking-wider">
@@ -92,14 +92,14 @@ const SearchSuggestions = ({ query, all, onClear }) => {
           className="glass-card absolute left-0 right-0 top-full mt-2 z-30 overflow-hidden rounded-2xl shadow-2xl shadow-black/10"
         >
           <div className="px-4 py-2.5 text-[10px] font-black uppercase tracking-widest text-gray-400 border-b border-gray-50 flex items-center gap-1.5">
-            <TrendingUp className="h-3 w-3 text-amber-500" /> Trending now
+            <TrendingUp className="h-3 w-3 text-neutral-600" /> Trending now
           </div>
           <ul className="divide-y divide-gray-50">
             {popular.map((p) => (
               <li key={p._id}>
                 <button
                   onClick={() => navigate(`/product/${p._id}`)}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-sky-50/60 transition-colors"
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-neutral-100/60 transition-colors"
                 >
                   <span className="text-sm font-bold text-gray-700 flex-1 truncate">{p.name}</span>
                   <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{p.category}</span>

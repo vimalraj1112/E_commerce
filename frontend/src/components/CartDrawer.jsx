@@ -40,12 +40,12 @@ const CartDrawer = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 32 }}
-            className="fixed top-0 right-0 bottom-0 z-[98] flex w-full max-w-md flex-col bg-[#0b1220] text-white shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 z-[98] flex w-full max-w-md flex-col bg-neutral-900 text-white shadow-2xl"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-500">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-neutral-900 to-neutral-700">
                   <ShoppingBag className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -71,7 +71,7 @@ const CartDrawer = () => {
                   <p className="text-sm text-white/50 mt-1">Add something special ✨</p>
                   <button
                     onClick={closeDrawer}
-                    className="mt-5 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-500 px-5 py-2.5 text-sm font-bold"
+                    className="mt-5 rounded-xl bg-gradient-to-tr from-neutral-900 to-neutral-700 px-5 py-2.5 text-sm font-bold"
                   >
                     Start Shopping
                   </button>
@@ -113,12 +113,12 @@ const CartDrawer = () => {
                               <Plus className="h-3.5 w-3.5" />
                             </button>
                           </div>
-                          <span className="font-black text-sky-300">${item.subtotal?.toFixed(2)}</span>
+                          <span className="font-black text-neutral-400">${item.subtotal?.toFixed(2)}</span>
                         </div>
                       </div>
                       <button
                         onClick={() => removeItem(item.product._id)}
-                        className="self-start p-1.5 text-white/40 hover:text-red-400 transition-colors"
+                        className="self-start p-1.5 text-white/40 hover:text-neutral-500 transition-colors"
                       >
                         <Trash2 className="h-4 w-4" />
                       </button>
@@ -137,13 +137,13 @@ const CartDrawer = () => {
                 </div>
                 <div className="flex items-center justify-between text-[11px] font-bold text-white/40 uppercase tracking-wider">
                   <span>Shipping</span>
-                  <span className="text-emerald-400">Free</span>
+                  <span className="text-neutral-300">Free</span>
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={goCheckout}
-                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-500 py-4 font-black shadow-xl shadow-sky-500/25"
+                  className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-tr from-neutral-900 to-neutral-700 py-4 font-black shadow-xl shadow-neutral-400/50"
                 >
                   Checkout Now
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

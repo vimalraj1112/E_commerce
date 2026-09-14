@@ -8,11 +8,11 @@ import CountUp from "./CountUp";
 import { fadeUp, staggerContainer } from "../utils/motion";
 
 const STATUS_META = {
-  Pending: { icon: Clock, color: "text-amber-500", bg: "bg-amber-50", label: "Pending", ring: "#f59e0b" },
-  Processing: { icon: TrendingUp, color: "text-sky-500", bg: "bg-sky-50", label: "Processing", ring: "#0ea5e9" },
-  Shipped: { icon: Truck, color: "text-blue-500", bg: "bg-blue-50", label: "Shipped", ring: "#3b82f6" },
-  Delivered: { icon: CheckCircle, color: "text-emerald-500", bg: "bg-emerald-50", label: "Delivered", ring: "#10b981" },
-  Cancelled: { icon: XCircle, color: "text-red-500", bg: "bg-red-50", label: "Cancelled", ring: "#ef4444" },
+  Pending: { icon: Clock, color: "text-neutral-600", bg: "bg-neutral-200", label: "Pending", ring: "#a1a1aa" },
+  Processing: { icon: TrendingUp, color: "text-neutral-600", bg: "bg-neutral-100", label: "Processing", ring: "#a1a1aa" },
+  Shipped: { icon: Truck, color: "text-neutral-600", bg: "bg-neutral-100", label: "Shipped", ring: "#a1a1aa" },
+  Delivered: { icon: CheckCircle, color: "text-neutral-600", bg: "bg-neutral-100", label: "Delivered", ring: "#737373" },
+  Cancelled: { icon: XCircle, color: "text-neutral-600", bg: "bg-neutral-100", label: "Cancelled", ring: "#52525b" },
 };
 
 const AdminAnalytics = ({ orders = [], products = [] }) => {
@@ -46,12 +46,12 @@ const AdminAnalytics = ({ orders = [], products = [] }) => {
   }, [orders, products]);
 
   const cards = [
-    { label: "Gross Revenue", value: <CountUp to={stats.revenue} prefix="$" decimals={2} />, icon: DollarSign, tint: "from-emerald-500 to-teal-500" },
-    { label: "Total Orders", value: <CountUp to={stats.totalOrders} />, icon: ShoppingBag, tint: "from-sky-500 to-indigo-500" },
-    { label: "Pending (action needed)", value: <CountUp to={stats.pending} />, icon: Clock, tint: "from-amber-500 to-orange-500" },
-    { label: "Delivered", value: <CountUp to={stats.delivered} />, icon: CheckCircle, tint: "from-teal-500 to-emerald-500" },
-    { label: "Units in Stock", value: <CountUp to={stats.totalUnits} />, icon: Package, tint: "from-indigo-500 to-violet-500" },
-    { label: "Low / Out of Stock", value: <CountUp to={stats.lowStock.length + stats.outOfStock.length} />, icon: AlertTriangle, tint: "from-rose-500 to-red-500" },
+    { label: "Gross Revenue", value: <CountUp to={stats.revenue} prefix="$" decimals={2} />, icon: DollarSign, tint: "from-neutral-800 to-neutral-600" },
+    { label: "Total Orders", value: <CountUp to={stats.totalOrders} />, icon: ShoppingBag, tint: "from-neutral-900 to-neutral-700" },
+    { label: "Pending (action needed)", value: <CountUp to={stats.pending} />, icon: Clock, tint: "from-neutral-800 to-neutral-600" },
+    { label: "Delivered", value: <CountUp to={stats.delivered} />, icon: CheckCircle, tint: "from-neutral-800 to-neutral-600" },
+    { label: "Units in Stock", value: <CountUp to={stats.totalUnits} />, icon: Package, tint: "from-neutral-800 to-neutral-600" },
+    { label: "Low / Out of Stock", value: <CountUp to={stats.lowStock.length + stats.outOfStock.length} />, icon: AlertTriangle, tint: "from-neutral-800 to-neutral-600" },
   ];
 
   const maxDist = Math.max(1, ...Object.values(stats.dist));
@@ -76,7 +76,7 @@ const AdminAnalytics = ({ orders = [], products = [] }) => {
         {/* Top sellers */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="glass-card rounded-3xl p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-5">
-            <Star className="h-5 w-5 text-amber-400" />
+            <Star className="h-5 w-5 text-neutral-500" />
             <h3 className="font-black text-gray-900 font-display">Top Sellers</h3>
           </div>
           {stats.topSellers.length ? (
@@ -95,7 +95,7 @@ const AdminAnalytics = ({ orders = [], products = [] }) => {
                         whileInView={{ width: `${(t.units / max) * 100}%` }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                        className={`h-full rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 ${i === 0 ? "from-amber-400 to-orange-500" : ""}`}
+                        className={`h-full rounded-full bg-gradient-to-r from-neutral-900 to-neutral-700 ${i === 0 ? "from-neutral-800 to-neutral-600" : ""}`}
                       />
                     </div>
                   </li>
@@ -110,7 +110,7 @@ const AdminAnalytics = ({ orders = [], products = [] }) => {
         {/* Order status funnel */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="glass-card rounded-3xl p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-5">
-            <TrendingUp className="h-5 w-5 text-sky-500" />
+            <TrendingUp className="h-5 w-5 text-neutral-600" />
             <h3 className="font-black text-gray-900 font-display">Order Pipeline</h3>
           </div>
           {Object.keys(stats.dist).length ? (
@@ -147,7 +147,7 @@ const AdminAnalytics = ({ orders = [], products = [] }) => {
 
           {/* low stock callout */}
           {stats.outOfStock.length > 0 && (
-            <div className="mt-5 p-3 rounded-2xl bg-red-50 border border-red-100 flex items-center gap-3 text-sm font-bold text-red-600">
+            <div className="mt-5 p-3 rounded-2xl bg-neutral-100 border border-neutral-200 flex items-center gap-3 text-sm font-bold text-neutral-800">
               <AlertTriangle className="h-5 w-5" />
               {stats.outOfStock.length} product{stats.outOfStock.length > 1 ? "s" : ""} out of stock — restock soon.
             </div>

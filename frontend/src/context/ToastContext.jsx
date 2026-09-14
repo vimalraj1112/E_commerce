@@ -5,10 +5,10 @@ import { CheckCircle2, AlertCircle, Info, X, XCircle } from "lucide-react";
 const ToastContext = createContext();
 
 const ICON = {
-  success: <CheckCircle2 className="h-5 w-5 text-emerald-400" />,
-  error: <XCircle className="h-5 w-5 text-rose-400" />,
-  info: <Info className="h-5 w-5 text-sky-400" />,
-  warn: <AlertCircle className="h-5 w-5 text-amber-400" />,
+  success: <CheckCircle2 className="h-5 w-5 text-neutral-300" />,
+  error: <XCircle className="h-5 w-5 text-neutral-400" />,
+  info: <Info className="h-5 w-5 text-neutral-500" />,
+  warn: <AlertCircle className="h-5 w-5 text-neutral-500" />,
 };
 
 export const ToastProvider = ({ children }) => {

@@ -3,14 +3,14 @@
 // No network needed. Every product looks distinct.
 
 const PALETTES = [
-  ["#38bdf8", "#6366f1", "#a855f7"], // sky→indigo→fuchsia
-  ["#f472b6", "#fb7185", "#fb923c"], // pink→rose→orange
-  ["#34d399", "#22d3ee", "#3b82f6"], // emerald→cyan→blue
-  ["#facc15", "#fb923c", "#ef4444"], // yellow→orange→red
-  ["#a3e635", "#34d399", "#06b6d4"], // lime→emerald→cyan
-  ["#c084fc", "#818cf8", "#34d399"], // purple→indigo→emerald
-  ["#fb923c", "#f43f5e", "#6366f1"], // orange→rose→indigo
-  ["#22d3ee", "#a855f7", "#f472b6"], // cyan→purple→pink
+  ["#e4e4e7", "#a1a1aa", "#52525b"], // grayscale — light→mid→dark
+  ["#f4f4f5", "#d4d4d8", "#8e8e98"], // grayscale
+  ["#fafafa", "#e5e5e5", "#9a9a9a"], // grayscale
+  ["#ececec", "#b0b0b0", "#606060"], // grayscale
+  ["#e8e8ec", "#a9a9b0", "#4b4b52"], // grayscale
+  ["#f1f1f2", "#bdbdbd", "#6b6b6b"], // grayscale
+  ["#e0e0e2", "#99999e", "#4a4a4f"], // grayscale
+  ["#f7f7f8", "#c8c8cc", "#5c5c63"], // grayscale
 ];
 
 // lightweight string hash → stable index

@@ -122,14 +122,14 @@ const AdminDashboard = () => {
                             {activeTab === t.key && (
                               <motion.span
                                 layoutId="admin-pill"
-                                className="absolute inset-0 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 shadow-lg shadow-sky-200"
+                                className="absolute inset-0 rounded-xl bg-gradient-to-tr from-neutral-900 to-neutral-700 shadow-lg shadow-neutral-300"
                                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
                               />
                             )}
                             <t.icon className="relative h-4 w-4" />
                             <span className="relative">{t.label}</span>
                             {t.badge > 0 && (
-                              <span className="relative -ml-1 -mt-3 bg-red-500 text-white text-[10px] h-5 min-w-5 px-1 flex items-center justify-center rounded-full border-2 border-white animate-bounce">
+                              <span className="relative -ml-1 -mt-3 bg-neutral-700 text-white text-[10px] h-5 min-w-5 px-1 flex items-center justify-center rounded-full border-2 border-white animate-bounce">
                                 {t.badge}
                               </span>
                             )}
@@ -254,7 +254,7 @@ const AdminDashboard = () => {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-blue-50 text-blue-700">
+                                                <span className="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-neutral-100 text-neutral-700">
                                                     {product.category}
                                                 </span>
                                             </td>
@@ -279,7 +279,7 @@ const AdminDashboard = () => {
                                                 </button>
                                                 <button 
                                                     onClick={() => handleDeleteProduct(product._id)}
-                                                    className="text-red-600 hover:text-red-900 p-2 hover:bg-red-50 rounded-lg transition-all"
+                                                    className="text-neutral-800 hover:text-neutral-900 p-2 hover:bg-neutral-100 rounded-lg transition-all"
                                                 >
                                                     <Trash2 className="h-5 w-5" />
                                                 </button>
@@ -333,7 +333,7 @@ const AdminDashboard = () => {
                                             </button>
                                             <button 
                                                 onClick={() => handleDeleteProduct(product._id)}
-                                                className="p-2 text-gray-400 hover:text-red-600 transition-colors"
+                                                className="p-2 text-gray-400 hover:text-neutral-800 transition-colors"
                                             >
                                                 <Trash2 className="h-5 w-5" />
                                             </button>
@@ -381,7 +381,7 @@ const AdminDashboard = () => {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-extrabold text-primary-600">${order.total_price.toFixed(2)}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full ${order.status === 'Delivered' ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700'}`}>
+                                                <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full ${order.status === 'Delivered' ? 'bg-neutral-800 text-white' : 'bg-neutral-200 text-neutral-800'}`}>
                                                     {order.status}
                                                 </span>
                                             </td>
@@ -413,7 +413,7 @@ const AdminDashboard = () => {
                                             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Order ID</p>
                                             <h4 className="text-sm font-black text-gray-900 uppercase">#{order._id.slice(-8)}</h4>
                                         </div>
-                                        <span className={`px-3 py-1 text-[10px] font-black rounded-full uppercase tracking-wider ${order.status === 'Delivered' ? 'bg-green-50 text-green-700' : 'bg-amber-50 text-amber-700'}`}>
+                                        <span className={`px-3 py-1 text-[10px] font-black rounded-full uppercase tracking-wider ${order.status === 'Delivered' ? 'bg-neutral-800 text-white' : 'bg-neutral-200 text-neutral-800'}`}>
                                             {order.status}
                                         </span>
                                     </div>
