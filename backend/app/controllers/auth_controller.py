@@ -9,7 +9,9 @@ def register():
     email = data.get('email')
     password = data.get('password')
     name = data.get('name')
-    role = data.get('role', 'user') # In a real app, you wouldn't let users choose 'admin' easily
+    # SECURITY: never trust a client-supplied role. Everyone registers as a
+    # normal 'user'; admins are created server-side only (see create_admin.py).
+    role = 'user'
 
     if not email or not password or not name:
         return jsonify({"msg": "Missing required fields"}), 400
