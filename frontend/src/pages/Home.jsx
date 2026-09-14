@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Sparkles, ArrowRight, TrendingUp } from "lucide-react";
-import CountUp from "../components/CountUp";
+import { Search, Sparkles } from "lucide-react";
+import ToonHero from "../components/ToonHero";
 import { productApi } from "../api/productApi";
 import ProductCard from "../components/ProductCard";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -107,97 +107,7 @@ const Home = () => {
     <div className="space-y-12">
       <Marquee />
 
-      {/* ============ PREMIUM HERO ============ */}
-      <section className="relative overflow-hidden rounded-[3rem] gradient-border text-white px-8 py-16 md:px-16 md:py-24 bg-[#0b1220]">
-        {/* animated multi-color aurora wash */}
-        <div className="absolute inset-0 bg-aurora opacity-60" />
-        {/* dark vignette to keep text crisp */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0b1220]/85 via-[#0b1220]/30 to-[#0b1220]/80" />
-
-        {/* ambient orbs */}
-        <div className="absolute inset-0">
-          <motion.div className="glow-orb h-80 w-80 bg-sky-500/50" style={{ top: "-10%", left: "-6%" }} animate={{ x: [0, 50, -20, 0], y: [0, 30, 60, 0] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }} />
-          <motion.div className="glow-orb h-72 w-72 bg-fuchsia-500/40" style={{ bottom: "-15%", right: "-8%" }} animate={{ x: [0, -40, 20, 0], y: [0, -30, -10, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }} />
-          <motion.div className="glow-orb h-56 w-56 bg-emerald-400/40" style={{ top: "20%", right: "15%" }} animate={{ x: [0, 30, -40, 0], y: [0, 40, -20, 0] }} transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }} />
-        </div>
-
-        <div className="relative grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <motion.div
-              variants={staggerContainer(0.12)}
-              initial="hidden"
-              animate="visible"
-              className="space-y-6"
-            >
-              <motion.div variants={fadeUp} className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.25em] text-sky-300 bg-white/5 border border-white/10 rounded-full px-4 py-2 backdrop-blur">
-                <span className="sparkle-dot h-1.5 w-1.5 rounded-full bg-sky-400" />
-                AI-Curated Premium Collection
-              </motion.div>
-
-              <motion.h1 variants={fadeUp} className="font-display font-black text-5xl md:text-6xl leading-[1.02] tracking-tight">
-                Elevate Your
-                <br />
-                <span className="text-gradient-glow">Lifestyle.</span>
-              </motion.h1>
-
-              <motion.p variants={fadeUp} className="text-white/70 text-lg font-medium leading-relaxed max-w-md">
-                Discover our handpicked collection of premium products, thoughtfully curated by an AI shopping assistant that learns your taste.
-              </motion.p>
-
-              <motion.div variants={fadeUp} className="flex flex-wrap gap-4 pt-2">
-                <a
-                  href="#ai-recommended"
-                  className="group inline-flex items-center gap-2 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-500 px-7 py-4 font-black text-sm shadow-2xl shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-[1.03] active:scale-[0.97] transition-all"
-                >
-                  <Sparkles className="h-4 w-4" />
-                  Get AI Recommendations
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a
-                  href="#collection"
-                  className="group inline-flex items-center gap-2 rounded-2xl bg-white/5 border border-white/15 px-7 py-4 font-black text-sm backdrop-blur hover:bg-white/10 hover:scale-[1.03] active:scale-[0.97] transition-all"
-                >
-                  Shop Collection
-                </a>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Animated stat board */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
-          >
-            <div className="glass-dark rounded-[2rem] p-8 space-y-6 shadow-2xl shadow-black/40">
-              <div className="grid grid-cols-2 gap-6">
-                {[
-                  { n: <CountUp to={120} suffix="+" />, l: "Signature pieces" },
-                  { n: <CountUp to={98} suffix="%" />, l: "Satisfaction rate" },
-                  { n: <CountUp to={523} />, l: "Free deliveries" },
-                  { n: <CountUp to={24} suffix="/7" />, l: "Premium support" },
-                ].map((s, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 + i * 0.12 }}
-                    className="rounded-2xl bg-white/[0.04] border border-white/10 p-5"
-                  >
-                    <div className="text-3xl font-black text-gradient-glow">{s.n}</div>
-                    <div className="mt-1 text-[11px] font-bold text-white/50 uppercase tracking-widest">{s.l}</div>
-                  </motion.div>
-                ))}
-              </div>
-              <div className="flex items-center gap-3 pt-1 border-t border-white/10 text-xs font-semibold text-white/60">
-                <TrendingUp className="h-4 w-4 text-emerald-400" />
-                Accelerating thanks to live AI personalization
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <ToonHero />
 
       {/* ============ AI RECOMMENDED ============ */}
       {recommendations.length >= 4 && (
