@@ -116,18 +116,18 @@ body {
 }
 
 /* ---------- Glass & glow surfaces ---------- */
-/* Unified translucent surface — lets the animated colorful bg show through on every page */
+/* Unified translucent surface — soft "ash" (warm gray) tint on every card */
 .glass-card {
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(214, 211, 209, 0.55); /* ash */
   backdrop-filter: blur(18px) saturate(170%);
   -webkit-backdrop-filter: blur(18px) saturate(170%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(210, 207, 205, 0.6);
 }
 .glass {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(214, 211, 209, 0.6); /* ash */
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(210, 207, 205, 0.55);
 }
 .glass-dark {
   background: rgba(11, 18, 32, 0.72);
@@ -185,7 +185,7 @@ body {
 /* Premium frosted card with an animated silver border that glints in motion */
 .premium-border {
   position: relative;
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(214, 211, 209, 0.72); /* ash */
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   border-radius: 2rem;

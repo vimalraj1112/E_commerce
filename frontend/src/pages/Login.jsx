@@ -39,7 +39,7 @@ const Login = () => {
                 className="w-full max-w-md"
             >
                 <div className="premium-border shadow-2xl shadow-neutral-400/30">
-                    <div className="p-8 md:p-12 bg-white/40 rounded-[2rem]">
+                    <div className="p-8 md:p-12 bg-[#e9e7e5]/45 rounded-[2rem]">
                         <motion.div variants={staggerContainer(0.08)} initial="hidden" animate="visible">
                             <div className="text-center mb-8">
                                 <motion.div variants={fadeUp} className="shine mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-neutral-900 to-neutral-600 text-white shadow-xl shadow-neutral-400">
